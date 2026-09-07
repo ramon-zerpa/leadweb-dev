@@ -2,9 +2,18 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Hero from "../components/Hero.astro";
+import Stats from "../components/Stats.astro";
+import Work from "../components/Work.astro";
+import Expertise from "../components/Expertise.astro";
+
+const workId = "built-for-purpose-made-to-be-noticed";
+const expertiseId = "more-than-a-website-a-business-tool";
 ---
 
 <BaseLayout locale="en">
-  <Nav slot="header" locale="en" />
-  <Hero locale="en" />
+  <Nav slot="header" locale="en" sectionLinks={{ work: `#${workId}`, expertise: `#${expertiseId}` }} />
+  <Hero locale="en" workHref={`#${workId}`} />
+  <Stats locale="en" />
+  <Work locale="en" id={workId} />
+  <Expertise locale="en" id={expertiseId} />
 </BaseLayout>

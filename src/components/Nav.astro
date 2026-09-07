@@ -88,6 +88,8 @@ const mobileItems = [...items, { label: content.nav.contactLabel, href: contact 
 </header>
 
 <script>
+  import { getHashTarget, scrollToHashTarget } from "../scripts/smooth-scroll";
+
   const header = document.querySelector<HTMLElement>('[data-ui-id="site.header"]');
   const opener = header?.querySelector<HTMLButtonElement>("[data-menu-open]");
   const closer = header?.querySelector<HTMLButtonElement>("[data-menu-close]");
@@ -132,20 +134,16 @@ const mobileItems = [...items, { label: content.nav.contactLabel, href: contact 
         ? event.target.closest<HTMLAnchorElement>("a[href]")
         : null;
       if (!link) return;
-      dialog.close();
 
-      const destination = new URL(link.href);
-      if (destination.origin !== location.origin || destination.pathname !== location.pathname || !destination.hash) return;
-
-      const target = document.getElementById(decodeURIComponent(destination.hash.slice(1)));
+      const target = getHashTarget(link);
       if (target) {
-        const hadTabindex = target.hasAttribute("tabindex");
-        if (!hadTabindex) {
-          target.tabIndex = -1;
-          target.addEventListener("blur", () => target.removeAttribute("tabindex"), { once: true });
-        }
-        target.focus({ preventScroll: true });
+        event.preventDefault();
+        dialog.close();
+        scrollToHashTarget(target);
+        return;
       }
+
+      dialog.close();
     });
 
     desktop.addEventListener("change", ({ matches }) => {

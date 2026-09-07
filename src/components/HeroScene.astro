@@ -15,7 +15,6 @@ const hero = copy[locale].hero;
   <div id={id} class="scene-art" aria-hidden="true">
     <div class="scene-guides" data-scene-part="guides"></div>
     <div class="scene-scan" data-scene-part="scan"></div>
-    <p class="scene-label">{hero.sceneLabel}</p>
     <div class="scene-parallax" data-scene-parallax>
     <div class="scene-float" data-scene-float>
     <div class="scene-layer scene-layer--structure" data-scene-part="foundation" data-scene-motion></div>
@@ -69,7 +68,7 @@ const hero = copy[locale].hero;
   .hero-scene {
     container-type: inline-size;
     inline-size: 100%;
-    max-inline-size: 37.25rem;
+    max-inline-size: 39.25rem;
     min-inline-size: 0;
     margin-inline: auto;
   }
@@ -103,17 +102,6 @@ const hero = copy[locale].hero;
     background: repeating-linear-gradient(90deg, #3b858530 0 1px, transparent 1px 15.05%);
     transform-origin: bottom;
     mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 78%, transparent);
-  }
-
-  .scene-label {
-    display: none;
-    position: absolute;
-    inset-block-start: 9.4cqi;
-    inset-inline-start: 3.35%;
-    color: #a4d9d8;
-    font: 400 1.678cqi / 1.5 var(--font-mono), monospace;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
   }
 
   .scene-layer {
@@ -302,7 +290,6 @@ const hero = copy[locale].hero;
 
   @media (min-width: 48rem) {
     .scene-art { aspect-ratio: 596 / 496; }
-    .scene-label { display: block; }
     .scene-badge { display: flex; }
   }
 </style>

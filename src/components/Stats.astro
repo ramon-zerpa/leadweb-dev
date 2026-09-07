@@ -1,0 +1,122 @@
+---
+import { copy, type Locale } from "../content/copy";
+
+interface Props {
+  locale: Locale;
+  id?: string;
+  titleId?: string;
+  uiId?: string;
+}
+
+const {
+  locale,
+  id = locale === "en" ? "lead-web-experience" : "experiencia-de-lead-web",
+  titleId = `${id}-title`,
+  uiId = "home.experience-strip",
+} = Astro.props;
+const content = copy[locale];
+---
+
+<section id={id} class="experience-strip" aria-labelledby={titleId} data-ui-id={uiId}>
+  <h2 id={titleId} class="sr-only">{content.statsTitle}</h2>
+  <dl class="experience-strip__list" data-ui-id={`${uiId}.list`}>
+    {content.stats.map((stat, index) => (
+      <div class="experience-strip__item" data-ui-id={`${uiId}.item-${index + 1}`}>
+        <dt class="experience-strip__label" aria-label={stat.label}>
+          <span class="experience-strip__label-wide" aria-hidden="true">{stat.label}</span>
+          <span class="experience-strip__label-compact" aria-hidden="true">{stat.compactLabel}</span>
+        </dt>
+        <dd class="experience-strip__value">{stat.value}</dd>
+      </div>
+    ))}
+  </dl>
+</section>
+
+<style>
+  .experience-strip {
+    border-block: 1px solid var(--color-line);
+  }
+
+  .experience-strip__list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    inline-size: 100%;
+    max-inline-size: var(--page-width);
+    margin-inline: auto;
+    padding: 1.5625rem var(--page-gutter);
+  }
+
+  .experience-strip__item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-inline-size: 0;
+  }
+
+  .experience-strip__value {
+    order: -1;
+    flex: 0 0 auto;
+    color: var(--color-paper);
+    font-size: 1.75rem;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.035em;
+    white-space: nowrap;
+  }
+
+  .experience-strip__label {
+    min-inline-size: 0;
+    color: var(--color-muted-dark);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.25;
+  }
+
+  .experience-strip__label-compact { display: none; }
+
+  @media (min-width: 48rem) and (max-width: 63.999rem) {
+    .experience-strip__list { padding-block: 1.5rem; }
+
+    .experience-strip__item {
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .experience-strip__value {
+      order: initial;
+      font-weight: 400;
+    }
+  }
+
+  @media (max-width: 47.999rem) {
+    .experience-strip__list {
+      gap: var(--space-2);
+      padding-block: 1.5rem;
+    }
+
+    .experience-strip__item {
+      display: grid;
+      gap: 0.5rem;
+      align-content: start;
+    }
+
+    .experience-strip__item:nth-child(2) { display: none; }
+
+    .experience-strip__value {
+      order: initial;
+      font-size: 1.6875rem;
+      font-weight: 400;
+    }
+
+    .experience-strip__label {
+      font-size: 0.75rem;
+      line-height: 1.25;
+    }
+
+    .experience-strip__label-wide { display: none; }
+    .experience-strip__label-compact { display: block; }
+  }
+</style>

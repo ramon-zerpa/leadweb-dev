@@ -2,7 +2,7 @@
 
 Fecha: 2026-09-06.
 
-Estado: diseño v1 aprobado; base y cabecera implementadas. Hero con nueva entrada de 2,4 s, ambiente pausable, respuesta al puntero y titular typewriter de tres frases, autorizados por el usuario. Revisión visual abierta; permanecer en el hero. Consultar `HANDOFF-IMPLEMENTACION.md` para el estado técnico y las verificaciones vigentes.
+Estado: diseño v1 aprobado; cabecera, hero, franja de experiencia, bloque Selected work/DISOCA y Expertise implementados. El usuario valoró el hero y autorizó avanzar por bloques. Hero con entrada de 2,4 s, ambiente pausable, respuesta al puntero y titular typewriter de tres frases. Consultar `HANDOFF-IMPLEMENTACION.md` para el estado técnico y las verificaciones vigentes.
 
 Este documento complementa `PLAN-LEADWEB.md` y permite continuar el trabajo sin depender del historial del chat.
 
@@ -114,6 +114,12 @@ CTA comercial: “Discuss your project”. Envío del formulario: “Send projec
 
 La portada incluye 13+ años de experiencia y Lead Web desde 2015. La formación correcta es UPTM Kleber Ramírez. Las agencias se presentan como experiencia profesional, no como una lista automática de clientes directos.
 
+La franja `Experience strip` se inspeccionó mediante MCP en `p2aFV6` (escritorio) y `XaxPp` (móvil), sin modificar Pencil. En escritorio usa bordes de 1 px, padding de 25/64 px y tres datos en una misma fila. El código conserva 13+ con “Years building code”, reemplaza la fundación por “Since 2015 / U.S. collaboration” y usa VE / FL sin flecha. En móvil conserva bordes y padding de 24 px; el código utiliza las etiquetas concisas “Years of experience” y “Collaboration”, sin “Remote”. El código interpola a tres columnas verticales entre 768 y 1023 px para mantener los tres hechos sin apretar la lectura.
+
+El bloque Selected work se inspeccionó mediante MCP en `rXUQC` (escritorio) y `lxDdj` (móvil), sin modificar Pencil. La implementación conserva la superficie clara, encabezado editorial, navegador enmarcado y composición de proyecto de DISOCA. La captura se sirve desde el recurso local mediante variantes AVIF/WebP diferidas, no desde `disoca.com`; el enlace externo es la única navegación del caso en esta primera versión. El escritorio usa dos columnas desde 1024 px y el móvil apila previsualización, contenido y nota.
+
+Expertise se inspeccionó mediante MCP en `fRzH5` (escritorio) y `xlhDV` (móvil), sin modificar Pencil. La implementación conserva la superficie `#112629`, el label turquesa, el titular de tres líneas, el copy de apoyo y cuatro filas de servicios. Desde 1024 px usa la proporción de introducción de 380 px y lista a la derecha; debajo de ese ancho mantiene la pila de móvil. Los números y flechas comunican la composición visual, sin inventar destinos de navegación.
+
 ## 7. Movimiento propuesto
 
 El tablero `Ds17j` es un storyboard estático, no una animación ejecutable.
@@ -121,6 +127,10 @@ El tablero `Ds17j` es un storyboard estático, no una animación ejecutable.
 1. La estructura inicial es visible y el titular y CTA ya pueden utilizarse.
 2. El storyboard original proponía 650–900 ms. La nueva prueba autorizada usa 2,4 s para dar tiempo a estructura, ensamblaje de planos y revelado de la interfaz.
 3. La versión actual mantiene flotación e iluminación suaves, con un único control de pausa/reanudación. Se retiraron las opciones Interface/Structure y repetición al simplificar la barra por aprobación del usuario.
+
+Decisión vigente: el storyboard Interface/Structure queda como referencia histórica del proceso de diseño. La portada muestra una sola composición final; no restaurar el segundo estado ni su control sin una nueva petición explícita. También se retiró el rótulo “01 / Structure → Experience”, ya que no explicaba una acción útil para el visitante. La escena crece de 596 a un máximo de 628 px para ganar presencia sin cambiar su lenguaje visual.
+
+El eyebrow EN vigente es “WEBSITES ENGINEERED FOR FLORIDA BUSINESSES”. Se acerca 4 px al H1 y se adapta a dos líneas en móvil; el copy ES sigue pendiente de revisión editorial dentro de su futura ruta.
 
 No implementar un loader obligatorio, sustitución del cursor ni scrolljacking. El usuario autorizó posteriormente movimiento ambiental continuo y efecto ligado al mouse: esa petición sustituye la restricción original de bucles para este ambiente. Debe poder pausarse y suspenderse fuera de pantalla o al ocultar la pestaña. Con movimiento reducido, mostrar directamente la composición final. En móvil se utiliza una escena simplificada y controles de 44 px; el efecto del puntero solo se activa con hover/puntero preciso desde 768 px.
 
@@ -165,7 +175,7 @@ Durante la entrega visual original no se realizaron build, pruebas funcionales n
 
 ## 10. Trabajo aún pendiente
 
-1. Permanecer en la revisión del hero: layout, estilos base, cabecera y primera versión funcional ya existen. El usuario solicita mayor efecto WOW; no continuar otras secciones todavía.
+1. Siguiente bloque: `Founder`. Cabecera, hero, franja de experiencia, Work / DISOCA y Expertise ya existen; continuar una sección por vez.
 2. Revisar editorialmente los textos EN/ES ya escritos en `src/content/copy.ts`; las maquetas españolas de Pencil siguen limitadas a las cabeceras.
 3. Validar narrativa y recursos de Disoca para publicación, sin métricas inventadas y con enlace externo en v1.
 4. Cerrar privacidad, contenido definitivo, estados adicionales necesarios y comportamiento responsive entre los anchos de referencia.
@@ -180,5 +190,7 @@ La dirección visual v1 está aprobada para implementación. El cierre editorial
 Repositorio: https://github.com/ramon-zerpa/leadweb-dev
 
 La entrega original verificó el remoto como público y vacío. El 2026-09-06 el usuario autorizó el primer commit y push del proyecto después de los refinamientos de favicon/firma, sobre la rama existente `master`. El checkpoint incluye Markdown, código, recursos, `.pen` y sus exportaciones de revisión. El PDF de `design-preview/export.pdf` es la exportación del diseño. Esta autorización de guardado no incluye sustituir la web publicada ni desplegar en el hosting.
+
+El 2026-09-07 el usuario autorizó un nuevo commit y push de todos los cambios pendientes después de corregir la navegación interna. El scroll suave sin hash es un comportamiento de código que conserva los destinos visuales del diseño; no modifica el archivo Pencil ni autoriza despliegue al hosting.
 
 No subir el PDF de LinkedIn, credenciales, backups ni materiales no autorizados. Revisar el tamaño y pertinencia de las exportaciones antes de decidir cuáles versionar.

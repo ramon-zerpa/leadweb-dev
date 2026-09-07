@@ -49,7 +49,7 @@ export const copy = {
       close: "Close menu",
     },
     hero: {
-      kicker: "Web experiences for Florida businesses",
+      kicker: "WEBSITES ENGINEERED FOR FLORIDA BUSINESSES",
       lines: ["Stand out.", "Stay fast.", "Win trust."],
       rotatingLines: ["Win trust.", "Get leads.", "Sell more."],
       body: {
@@ -59,7 +59,6 @@ export const copy = {
       },
       cta: "Discuss your project",
       secondary: "Explore my work",
-      sceneLabel: "01 / Structure → Experience",
       sceneMiniKicker: "Ideas, engineered.",
       sceneMiniTitle: "Beyond ordinary.",
       sceneStructureTitle: "Form follows intention.",
@@ -69,10 +68,23 @@ export const copy = {
       badge: "Human-led. AI-powered.",
       sceneCaption: "An illustration of geometric layers forming a web interface.",
     },
+    statsTitle: "Lead Web experience",
     stats: [
-      { value: "13+", label: "years building for business" },
-      { value: "2015", label: "Lead Web founded" },
-      { value: "VE → FL", label: "Remote. Experienced. Connected." },
+      {
+        value: "13+",
+        label: "Years building code",
+        compactLabel: "Years of experience",
+      },
+      {
+        value: "Since 2015",
+        label: "U.S. collaboration",
+        compactLabel: "U.S. collaboration",
+      },
+      {
+        value: "VE / FL",
+        label: "Experienced. Connected.",
+        compactLabel: "Collaboration",
+      },
     ],
     work: {
       kicker: "01 / Selected work",
@@ -87,13 +99,15 @@ export const copy = {
       href: "https://disoca.com/",
       previewUrl: "disoca.com",
       previewAlt: "Homepage of DISOCA, an engineering and construction website",
-      noteLabel: "You’re exploring my latest canvas.",
-      note: "Lead Web / A personal project built to show what comes next.",
+      noteLabel: "Selected project",
+      note:
+        "A tailored digital presence for a construction company operating across Latin America.",
     },
     expertise: {
       kicker: "02 / What I bring",
       title: "More than\na website.\nA business tool.",
       body: "Design, development and performance working together from the first decision.",
+      listLabel: "Lead Web services",
       items: [
         {
           num: "01",
@@ -275,7 +289,6 @@ export const copy = {
       },
       cta: "Hablemos de tu proyecto",
       secondary: "Explora mi trabajo",
-      sceneLabel: "01 / Estructura → Experiencia",
       sceneMiniKicker: "Ideas, bien construidas.",
       sceneMiniTitle: "Más que una web.",
       sceneStructureTitle: "La forma sigue la intención.",
@@ -285,10 +298,23 @@ export const copy = {
       badge: "Criterio humano. Potencia IA.",
       sceneCaption: "Una ilustración de planos geométricos que forman una interfaz web.",
     },
+    statsTitle: "La experiencia de Lead Web",
     stats: [
-      { value: "13+", label: "años construyendo para negocios" },
-      { value: "2015", label: "nació Lead Web" },
-      { value: "VE → FL", label: "Trabajo remoto. Experiencia real." },
+      {
+        value: "13+",
+        label: "años construyendo para negocios",
+        compactLabel: "Años de experiencia",
+      },
+      {
+        value: "Desde 2015",
+        label: "colaboración con EE. UU.",
+        compactLabel: "colaboración con EE. UU.",
+      },
+      {
+        value: "VE / FL",
+        label: "Experiencia real.",
+        compactLabel: "Colaboración",
+      },
     ],
     work: {
       kicker: "01 / Trabajo seleccionado",
@@ -303,13 +329,15 @@ export const copy = {
       href: "https://disoca.com/",
       previewUrl: "disoca.com",
       previewAlt: "Página de inicio de DISOCA, sitio de ingeniería y construcción",
-      noteLabel: "Estás viendo mi lienzo más reciente.",
-      note: "Lead Web / Un proyecto personal para mostrar lo que sigue.",
+      noteLabel: "Proyecto seleccionado",
+      note:
+        "Una presencia digital a medida para una constructora con operaciones en América Latina.",
     },
     expertise: {
       kicker: "02 / Lo que aporto",
       title: "Más que\nun sitio.\nUna herramienta.",
       body: "Diseño, desarrollo y rendimiento trabajando juntos desde la primera decisión.",
+      listLabel: "Servicios de Lead Web",
       items: [
         {
           num: "01",

@@ -1,7 +1,7 @@
 # Lead Web: hand-off de implementación
 
 Fecha: 2026-09-06.
-Estado: header/hero valorados muy positivamente por el usuario. Entrada de 2,4 s, iluminación circular amplia/desvanecida, respuesta al puntero, brillos difusos, typewriter 700 con degradado y firma con cursor. Un único botón pausa el conjunto. Favicon de marca añadido y firma acercada al símbolo. Primer commit y push autorizados el 2026-09-06; punto de pausa para retomar después. Sin Remotion ni despliegue al hosting; demás secciones e integraciones pendientes.
+Estado: header/hero valorados muy positivamente por el usuario y autorizada la continuación por bloques. Entrada de 2,4 s, iluminación circular amplia/desvanecida, respuesta al puntero, brillos difusos, typewriter 700 con degradado y firma con cursor. Escena única ampliada, sin etiqueta Structure/Experience, y eyebrow EN actualizado/acercado al H1. Un único botón pausa el conjunto. Favicon de marca añadido y firma acercada al símbolo. La franja `Stats`, Work / DISOCA y Expertise están integrados bajo el hero. Los enlaces internos usan scroll suave sin hash en la URL. El usuario autorizó el commit y push de los cambios pendientes el 2026-09-07. Sin Remotion ni despliegue al hosting; las demás secciones e integraciones pendientes.
 
 Este documento complementa `PLAN-LEADWEB.md` (plan maestro) y `DESIGN-HANDOFF.md` (dirección visual v1), y permite a otro agente continuar la construcción sin depender del historial del chat.
 
@@ -24,12 +24,13 @@ Diseño vigente: `C:\Users\user\Downloads\new-lead-web\design-preview\pencil-des
 - Assets en `src/assets/`: `logo.png` (49 KB, transparente), `portrait.png` (1,9 MB), `disoca-preview.png` (545 KB), `disoca-photo.webp` (143 KB).
 - `src/layouts/BaseLayout.astro`: idioma, metadatos por página, canonical del dominio configurado, Open Graph, soporte de alternates EN/ES y `x-default`, `noindex` opcional, fuentes locales con una sola precarga, skip link traducido y único `<main>` enfocable. Slots `header`, contenido, `footer` y `head`.
 - `src/styles/global.css`: tokens visuales aprobados, escala de espaciado, tipografía fluida, contenedor, superficies clara/oscura, foco visible y reducción de movimiento. Sin JavaScript de cliente añadido.
-- `src/pages/index.astro` compone el layout, Nav y Hero EN. La portada completa sigue pendiente.
+- `src/pages/index.astro` compone el layout, Nav, Hero, Stats, Work y Expertise EN. La portada completa sigue pendiente.
 - `src/components/Nav.astro`: cabecera de 80 px por debajo de 1024 px y de 96 px a partir de ese ancho. Menú modal móvil con cierre mediante botón/Escape, foco circular, retorno de foco y desbloqueo de scroll al cerrar o cambiar a escritorio. Integrada en el slot `header` de `/`.
 - Componentes reutilizables `NavBrand.astro`, `NavLinks.astro` y `LanguageSwitcher.astro`. Logo maestro conservado y servido mediante variantes WebP de Astro; etiquetas accesibles EN/ES añadidas a `copy.ts`.
 - `NavBrand.astro`: “Lead Web” a `0.75rem`/400 y `</Dev_>` a `0.875rem`/600 con degradado turquesa–azul, mismo ancho y centro vertical con el logo. `brandSignature` en `copy.ts`; firma reutilizada en el menú móvil. El guion bajo parpadea con CSS y usa el controlador compartido de los brillos para pausa/visibilidad; sin fuentes ni dependencias adicionales.
-- Destinos del Nav configurables con `sectionLinks`, `contactHref`, `homeHref` y `alternateHref`. En la muestra actual, Work/Expertise/About y el idioma alternativo tienen `aria-disabled` y carecen de href; el contacto usa `mailto:info@leadweb.dev`. Activar cada destino cuando exista su sección o página, sin enlaces ficticios.
-- `Hero.astro` y `HeroScene.astro`: composición EN/ES, tipografía adaptada por idioma, última línea del titular animada, texto/CTA disponibles desde HTML y escena geométrica con CSS. Dos columnas desde 1024 px; escena simplificada debajo del texto en móvil. El componente ES fue comprobado en una ruta temporal, no equivale a tener `/es/` implementada.
+- Destinos del Nav configurables con `sectionLinks`, `contactHref`, `homeHref` y `alternateHref`. Work enlaza a `#built-for-purpose-made-to-be-noticed` y Expertise a `#more-than-a-website-a-business-tool`; About y el idioma alternativo tienen `aria-disabled` y carecen de href. El contacto usa `mailto:info@leadweb.dev`. Activar cada destino cuando exista su sección o página, sin enlaces ficticios.
+- `src/scripts/smooth-scroll.ts`: controla los enlaces internos de la página, incluido “Explore my work”. Intercepta la navegación normal para desplazar la sección con suavidad y sin cambiar la URL; conserva los `href` como fallback y utiliza desplazamiento inmediato con `prefers-reduced-motion`. Da foco temporal a la sección de destino para usuarios de teclado. El menú móvil lo reutiliza antes de cerrar su diálogo.
+- `Hero.astro` y `HeroScene.astro`: composición EN/ES, tipografía adaptada por idioma, última línea del titular animada, texto/CTA disponibles desde HTML y escena geométrica con CSS. Una sola escena final; rótulo Structure/Experience retirado. Dos columnas desde 1024 px; escena simplificada debajo del texto en móvil. El componente ES fue comprobado en una ruta temporal, no equivale a tener `/es/` implementada.
 - `src/scripts/hero-scene.ts`: entrada de 2,4 s, flotación y luz ambiental situada en el hero completo. Puntero preciso desde 768 px, pausa/reanudación compartida y suspensión fuera de pantalla/pestaña oculta. Se retiraron selección de vista y repetición; el estado final existe sin scripts. Movimiento reducido conserva la composición estática y oculta el botón de pausa.
 - `hero.body` en `copy.ts` contiene `intro`, `detail` y `ending`; la frase final solo se muestra desde 768 px como en Pencil. También contiene los textos de estructura y etiquetas accesibles de los controles en EN/ES.
 - `src/scripts/hero-typewriter.ts`: tres frases EN/ES con escritura/borrado y cursor. Pausa manual mediante `data-motion-paused`, suspensión independiente al salir el titular de pantalla o al ocultar la pestaña y primera frase estática con movimiento reducido. H1 accesible original y espacio reservado para impedir saltos. Se retiró el evento de repetición.
@@ -37,19 +38,21 @@ Diseño vigente: `C:\Users\user\Downloads\new-lead-web\design-preview\pencil-des
 - Tokens `--color-brand-turquoise`, `--color-brand-cyan`, `--color-brand-blue` y `--gradient-brand` en `global.css`; degradado compartido por firma y texto visual del typewriter, colores reutilizados en los brillos. Fallback sólido y colores forzados incluidos.
 - Menú e idioma alternativo con hover turquesa sólido; idioma actual conserva su color. Separador vertical con separación visual igual a ambos lados. Typewriter en peso 700; EN conserva tamaño y ES reduce únicamente la línea animada un 2 % desde 1024 px. Detalles en sección 18.
 - Favicon de marca derivado de `src/assets/logo.png`: PNG 96×96 e ICO 16/32/48, declarados en el layout. Firma a 4 px del logo en móvil/tablet y 8 px desde 1024 px. Detalles en sección 19.
+- `src/components/Stats.astro`: franja semántica de experiencia bajo el hero. El título solo para tecnologías de asistencia etiqueta una lista de definiciones; los datos siguen en `copy.ts`. Desde 1024 px los tres hechos se muestran en fila; de 768 a 1023 px se recomponen como tres columnas verticales; por debajo de 768 px se conserva la síntesis móvil de dos hechos con etiquetas cortas. Sin imágenes ni JavaScript.
+- `src/components/Work.astro`: sección semántica Selected work con H2, artículo y H3 de DISOCA, apoyada en los textos centralizados. Reproduce el navegador enmarcado y utiliza `Picture` para servir la previsualización local en AVIF/WebP con `loading="lazy"`; desde 1024 px usa dos columnas y en móvil apila el contenido. El enlace externo usa `target="_blank"` y `rel="noopener noreferrer nofollow"`. Sin JavaScript ni dependencias nuevas.
+- `src/components/Expertise.astro`: sección semántica de servicios con H2, lista y H3 por oferta. Reproduce la superficie oscura y las cuatro filas de Pencil con números/flechas decorativos; CSS móvil primero y dos columnas desde 1024 px. Sin JavaScript, enlaces ficticios ni dependencias nuevas.
 - Plan, entrega visual y README sincronizados con el estado actual y la ubicación vigente de Pencil. `AGENTS.md` y `CLAUDE.md` mantienen sus instrucciones válidas.
 
 ### Pendiente
-- Revisar con el usuario la nueva entrada, el ambiente, la respuesta al puntero y el titular typewriter antes de pasar a otras secciones. Autorizó probar esta solución nativa; no asumir aprobación visual final ni adopción de Remotion.
-- El usuario aprobó la firma y valoró muy positivamente el brillo difuso, el cursor y la extensión del degradado de la sección 17. Después pidió hover sencillo, barra vertical de idioma y peso 700 en el typewriter, implementados en la sección 18. Permanecer en header/hero hasta acordar la siguiente etapa.
+- Siguiente bloque: `Founder`. El usuario autorizó continuar desde hero; mantener el alcance en una sección por vez.
 - Faltan las demás secciones y composición completa de `/`; páginas `/es/`, `/privacy/`, `/es/privacidad/` y 404; Formspree, imagen social y SEO final por página.
 - Activar `alternates` del layout cuando existan las dos páginas equivalentes. La muestra actual no genera enlaces a `/es/` porque esa página todavía no existe.
 - QA funcional y visual de cada nuevo bloque; PageSpeed y verificación del sitio completo al finalizar. La base ya pasa build y comprobación de tipos.
-- Optimizar imágenes: `portrait.png` y `disoca-preview.png` deben generar variantes ligeras (WebP/AVIF, `pipelineSharpImage`/`astro:assets`).
+- Optimizar imágenes: `portrait.png` debe generar variantes ligeras (WebP/AVIF, `pipelineSharpImage`/`astro:assets`) al entrar en una sección. `disoca-preview.png` ya se sirve mediante variantes AVIF/WebP de `Picture`.
 
 ### Bloqueos
 - Ninguno técnico para continuar. La aprobación de diseño ya consta en `DESIGN-HANDOFF.md`.
-- Commit y push de este primer checkpoint autorizados el 2026-09-06. El despliegue en hosting permanece sin autorización.
+- El usuario autorizó el commit y push de todos los cambios pendientes el 2026-09-07. El despliegue en hosting permanece sin autorización.
 
 ## 3. Decisiones de arquitectura ya fijadas
 
@@ -108,8 +111,8 @@ Escala de espaciado: 8, 16, 24, 32, 48, 64, 96. Margen base escritorio: 64; móv
 
 ## 7. Próximos pasos (por etapas, no todo de una vez)
 
-1. **Permanecer en el hero** por instrucción del usuario. Valorar la nueva propuesta de 2,4 s, el ambiente, el efecto del puntero y las tres frases del typewriter. Ajustar su intensidad/composición según la revisión visual. Remotion no se ha instalado ni integrado. Volver a verificar responsive, movimiento reducido y coste al modificarla.
-2. **Demás secciones**, una o pocas por bloque acordado: `Stats`, `Work`, `Expertise`, `Founder`, `Process`, `Contact`, `Footer`. Optimizar imágenes y activar los destinos del Nav al existir cada sección.
+1. **Siguiente bloque: Founder.** `Stats`, Work / DISOCA y Expertise están completos; continuar una sección por vez.
+2. **Demás secciones**, una o pocas por bloque acordado: `Founder`, `Process`, `Contact`, `Footer`. Activar los destinos del Nav al existir cada sección.
 3. **Páginas completas e integraciones**: composición EN/ES, privacidad, 404, Formspree, metadatos específicos, alternates, robots y migración. Comprobar compatibilidad del formulario antes de envíos reales.
 4. **Verificar cada bloque** con tipos/build y navegador. Servidor en background: `npm run dev -- --background`; gestionar con `npm run astro -- dev status`, `logs` y `stop`.
 
@@ -120,16 +123,20 @@ Escala de espaciado: 8, 16, 24, 32, 48, 64, 96. Margen base escritorio: 64; móv
 - `src/assets/{logo.png, portrait.png, disoca-preview.png, disoca-photo.webp}` — recursos; optimizar tamaños.
 - `src/layouts/BaseLayout.astro` y `src/styles/global.css` — base compartida verificada.
 - `src/components/{Nav,NavBrand,NavLinks,LanguageSwitcher}.astro` — cabecera y piezas reutilizables. Un solo Nav por página; IDs estables `site-header` y `site-menu`.
-- `src/components/{Hero,HeroScene}.astro` y `src/scripts/{hero-scene,hero-typewriter}.ts` — hero, escena y titular animado. Destinos configurables `contactHref`/`workHref`; contacto por correo y trabajo sin href mientras su sección no exista.
+- `src/components/{Hero,HeroScene}.astro` y `src/scripts/{hero-scene,hero-typewriter}.ts` — hero, escena y titular animado. Destinos configurables `contactHref`/`workHref`; contacto por correo y trabajo anclado a Selected work.
 - `src/components/NeonBorder.astro` y `src/scripts/neon-border.ts` — luz difusa del borde y controlador compartido con los cursores de marca.
-- `src/pages/index.astro` — cabecera y hero EN; incorporar las siguientes secciones solo después de cerrar la revisión actual.
+- `src/scripts/smooth-scroll.ts` — navegación interna suave, sin hash y con respeto a movimiento reducido.
+- `src/components/Stats.astro` — franja de experiencia responsive y semántica, bajo el hero.
+- `src/components/Work.astro` — bloque Selected work responsive y semántico, con previsualización optimizada de DISOCA.
+- `src/components/Expertise.astro` — bloque de servicios responsive y semántico sobre superficie oscura.
+- `src/pages/index.astro` — cabecera, hero, Stats, Work y Expertise EN; siguiente incorporación: Founder.
 - `public/` — favicon de marca en `favicon.png` y `favicon.ico`; iconos del starter sustituidos.
 - `DESIGN-HANDOFF.md`, `PLAN-LEADWEB.md` — referencia de diseño y plan/autorizaciones.
 - `tsconfig.json` — extiende `astro/tsconfigs/strict`.
 
 ## 9. Límites de autorización
 
-- Primer commit y push a GitHub autorizados para el checkpoint actual el 2026-09-06. Cualquier despliegue a Namecheap requiere autorización aparte.
+- El primer commit y push a GitHub fue autorizado para el checkpoint inicial del 2026-09-06. El usuario autorizó además el commit y push de todos los refinamientos pendientes el 2026-09-07. El despliegue a Namecheap requiere autorización aparte.
 - NO leer/editar el `.pen` por filesystem (solo MCP Pencil).
 - NO exponer secretos, credenciales, PDF de LinkedIn ni backups.
 - No inventar clientes, métricas ni experiencia. Mantener: 13+ años desde 2013, Lead Web desde 2015, base real Mérida (Venezuela), servicio a Florida.
@@ -282,3 +289,47 @@ Registro histórico: los segmentos SVG de esta etapa se sustituyeron por luz dif
 - Ambos iconos responden HTTP 200 en el preview con MIME correcto. PNG decodificado a 96×96 con alpha; ICO con tres entradas y tipo válido. Build final: **PASS**, 15 archivos, cero errores/warnings/hints y solo `/`; sin nuevas dependencias ni JavaScript.
 - Primer guardado: rama local existente `master`, remoto `origin` en `https://github.com/ramon-zerpa/leadweb-dev.git`, sin commits remotos antes de este checkpoint. Alcance: implementación, configuración, documentación, recursos y diseño/exportaciones. `node_modules`, `dist` y `.astro` permanecen ignorados. El historial de Git contiene el identificador del commit.
 - Servidor en background en `http://localhost:4321`, PID 11060 en esta revisión. Siguiente sesión: retomar con el usuario desde este header/hero; las demás secciones y el despliegue al hosting siguen pendientes.
+
+## 20. Escena única ampliada y eyebrow de ingeniería — 2026-09-06
+
+- Usuario: confirma que no le interesaba la segunda vista “Structure” y pide retirar “01 / Structure → Experience”, aumentar un poco el conjunto gráfico y actualizar/acercar el eyebrow. No solicita restaurar controles, cambiar la escena interna ni publicar.
+- `HeroScene.astro`: eliminado el elemento visible `scene-label`, su CSS y los strings EN/ES de `copy.ts`. Las capas geométricas se conservan como profundidad y parte de la entrada, pero la portada presenta una sola composición final. El máximo de `.hero-scene` pasa de **37,25rem / 596 px** a **39,25rem / 628 px**. Desde 1024 px, el grid cambia de 672/596 a 640/628, dando alrededor de 5,4 % más ancho a la escena sin usar `transform: scale()` ni recortes nuevos.
+- `copy.ts`: eyebrow EN exacto `WEBSITES ENGINEERED FOR FLORIDA BUSINESSES`. El eyebrow móvil pasa de 26 a 32ch, de modo que conserva dos líneas a 320/390 px; `margin-block-end: -0.25rem` reduce en 4 px la distancia hacia el H1. El texto ES de su futura ruta se conserva sin traducir/adaptar de forma automática.
+- Navegador: 320/390/768/1024/1440 sin overflow, un H1 y etiqueta retirada del DOM. Escena: 272 px a 320, 327 px a 390, 628 px a 768/1440 y 446,6 px a 1024; móvil conserva dos líneas de eyebrow y 18 px hasta el H1. Revisión visual del final en 1024/1440 y del eyebrow en 390.
+- `npm run build`: **PASS**, 15 archivos, cero errores/warnings/hints y una sola ruta `/`. No se añadieron dependencias, solicitudes, scripts o medios. Preview en `http://localhost:4321`, servidor PID 11060 en esta revisión. Documentación sincronizada. Este ajuste queda local hasta recibir una nueva autorización de commit/push.
+
+## 21. Franja de experiencia / Stats — 2026-09-06
+
+- Usuario: después de valorar positivamente el hero, pide desarrollar el siguiente bloque. Se toma `Experience strip` como siguiente bloque del recorrido definido en Pencil y en el plan.
+- Fuente visual inspeccionada exclusivamente mediante MCP de Pencil: `p2aFV6` en `WRA6V` y `XaxPp` en `lUMvX`. Escritorio: borde superior/inferior de 1 px, padding 25/64 px y tres pares valor/etiqueta. Móvil: padding de 24 px y solo 13+ y VE / FL en vertical. El archivo `.pen` no se modificó.
+- `Stats.astro`: sección con id, `aria-labelledby`, H2 para tecnologías de asistencia y `data-ui-id` estable. La lista de definiciones conserva una única fuente de copy. Valores en Instrument Sans; paper para los datos y muted para etiquetas. No usa JS, imágenes ni nuevas dependencias.
+- Copy ajustado por solicitud posterior: el primer dato usa “Years building code” en escritorio y “Years of experience” en móvil. El dato central se presenta como “Since 2015” / “U.S. collaboration”, en vez de afirmar que Lead Web se fundó en ese año. El identificador usa “VE / FL”, sin flecha; su etiqueta queda en “Experienced. Connected.” y “Collaboration” en móvil, sin “Remote”. La variante ES mantiene las equivalencias naturales “Desde 2015”, “colaboración con EE. UU.”, “Años de experiencia” y “Colaboración”.
+- Responsive: desde 1024 px conserva la fila horizontal del desktop; entre 768 y 1023 px muestra los tres pares como columnas verticales; bajo 768 px oculta el dato editorial central y usa etiquetas abreviadas, como la composición móvil Pencil. Los umbrales siguen el criterio aprobado 390/768/1024/1440 y no alteran hero/cabecera.
+- Verificación: `npm run build` **PASS** con 16 archivos, cero errores/warnings/hints y una ruta `/`. Navegador local: H1 y H2 en orden, una sección `lead-web-experience`, lista de definiciones y los tres datos presentes en escritorio. La franja no añade recursos de red ni código de cliente. Cambios locales; sin commit/push ni publicación.
+
+## 22. Trabajo seleccionado / DISOCA — 2026-09-06
+
+- Usuario: tras aprobar la franja de experiencia, solicita el siguiente bloque. Se toma Selected work / DISOCA, inmediatamente después de la franja en el recorrido de Pencil; se conserva el alcance de una sección por vez.
+- Fuente visual inspeccionada exclusivamente mediante MCP de Pencil: `rXUQC` dentro de `WRA6V` para escritorio y `lxDdj` dentro de `lUMvX` para móvil. Se tomaron como referencia la superficie paper, el encabezado editorial, el navegador enmarcado, las dos columnas de escritorio y la pila móvil. El archivo `.pen` no se modificó.
+- `Work.astro`: sección con id, `aria-labelledby`, H2 y `data-ui-id` estable. El proyecto es un `article` con H3, imagen con alt, lista semántica de tecnologías y enlace externo. La nota inferior usa un `aside`; el orden de encabezados de la portada queda H1 del hero, H2 de Stats, H2 de Work y H3 de DISOCA.
+- La previsualización utiliza `Picture` sobre `src/assets/disoca-preview.png`, con anchos 310/538/698, formatos AVIF/WebP, `loading="lazy"` y `decoding="async"`. Astro genera las variantes al construir; no se solicita una captura desde `disoca.com` y no se añadió JavaScript ni dependencias.
+- `index.astro` define `#built-for-purpose-made-to-be-noticed`, pasa ese destino a `Nav` y `Hero`, y renderiza Work debajo de Stats. Work y “Explore my work” ya son enlaces funcionales hacia el bloque. Expertise se activó en la etapa siguiente; About y el idioma alternativo permanecen correctamente deshabilitados mientras no existan sus destinos. El enlace “Explore the project” abre `https://disoca.com/` con `target="_blank"` y `rel="noopener noreferrer nofollow"`.
+- Copy revisado por el usuario: la nota final deja de presentar DISOCA como un proyecto personal. EN: “A tailored digital presence for a construction company operating across Latin America.” ES: “Una presencia digital a medida para una constructora con operaciones en América Latina.” El rótulo pasa a “Selected project” / “Proyecto seleccionado”.
+- Responsive: base móvil con la previsualización, contenido y nota apilados; desde 768 px se reorganiza encabezado/nota y desde 1024 px proyecto pasa a dos columnas. La composición de escritorio se comprobó visualmente en el navegador local después de la carga diferida de la imagen; la jerarquía, los destinos de ancla, el alt y el enlace externo se confirmaron con el árbol de accesibilidad.
+- Verificación final: `npm run build` **PASS** con 17 archivos, cero errores, warnings y hints; una ruta `/`. El build emitió variantes AVIF/WebP de la previsualización y el servidor devolvió las solicitudes de imagen con HTTP 200. `git diff --check` no informó errores de whitespace. Servidor en background: `http://localhost:4321`, PID 11060. Cambios locales; sin commit/push ni publicación.
+
+## 23. Expertise / Servicios — 2026-09-06
+
+- Usuario: solicita el bloque siguiente después de actualizar la nota de DISOCA. Se implementa Expertise, que sucede a Selected work en el recorrido de Pencil, manteniendo una sección por etapa.
+- Fuente visual inspeccionada exclusivamente mediante MCP de Pencil: `fRzH5` dentro de `WRA6V` para escritorio y `xlhDV` dentro de `lUMvX` para móvil. Se tomaron como referencia la superficie `#112629`, el label turquesa, el titular de tres líneas, el copy de apoyo y las cuatro filas de servicios. El archivo `.pen` no se modificó.
+- `Expertise.astro`: sección con id, `aria-labelledby`, H2 y `data-ui-id` estable. La lista de servicios tiene una etiqueta propia y cada oferta un H3; los números y flechas son decorativos y no introducen anuncios duplicados. Copy EN/ES y el label de lista se centralizan en `copy.ts`. No añade JavaScript, recursos de red ni dependencias.
+- Composición: base móvil de 56/24 px, introducción seguida de lista y filas separadas por líneas de 1 px. Desde 1024 px usa dos columnas; la introducción mantiene de 320 a 380 px para preservar “A business tool.” en una sola línea, mientras la lista ocupa el espacio restante. Los títulos de servicio pasan de 24 a 28 px de forma gradual, siguiendo las referencias de Pencil.
+- `index.astro` renderiza Expertise debajo de Work y registra `#more-than-a-website-a-business-tool` en `sectionLinks`. El enlace Expertise del header ya navega al bloque; About y el idioma alternativo permanecen deshabilitados hasta contar con destino real.
+- Verificación: revisión visual de escritorio en el navegador local, con composición completa, sin cortes y proporciones corregidas para que el titular conserve sus tres líneas. El árbol de accesibilidad confirma H1 del hero, H2 de Stats/Work/Expertise y H3 de DISOCA y los cuatro servicios; Work y Expertise del header tienen sus anclas correctas. `npm run build` **PASS** con 18 archivos, cero errores, warnings y hints; una ruta `/`. `git diff --check` no informó errores de whitespace. Cambios locales; sin commit/push ni publicación.
+
+## 24. Navegación interna sin hash — 2026-09-07
+
+- Usuario: solicita scroll suave al navegar por las secciones y que la URL no agregue un hash. Autoriza también commit y push de todos los cambios pendientes al terminar la verificación.
+- `src/scripts/smooth-scroll.ts`: detecta enlaces con destino interno, cancela su comportamiento nativo, hace `scrollIntoView()` suave y deja la URL intacta. Los clics modificados o no primarios se preservan; `prefers-reduced-motion` usa desplazamiento inmediato. La sección recibe foco temporal con `preventScroll` para conservar una navegación de teclado comprensible.
+- `Nav.astro`: el menú móvil reutiliza el mismo helper, previene el hash antes de cerrar el diálogo y ejecuta la misma transición. Work, Expertise y “Explore my work” quedan cubiertos sin scripts separados en cada componente. Los `href` siguen presentes como fallback sin JavaScript.
+- Verificación: desde teclado se activó Work desde la cabecera. La vista se desplazó a Selected work y `http://localhost:4321/` permaneció sin hash. `npm run build` **PASS** con 19 archivos, cero errores, warnings y hints; `git diff --check` no informó errores de whitespace. Este checkpoint está autorizado para commit y push; despliegue sigue fuera de alcance.

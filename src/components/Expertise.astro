@@ -1,0 +1,156 @@
+---
+import { copy, type Locale } from "../content/copy";
+
+interface Props {
+  locale: Locale;
+  id?: string;
+  titleId?: string;
+  uiId?: string;
+}
+
+const {
+  locale,
+  id = locale === "en" ? "more-than-a-website-a-business-tool" : "mas-que-un-sitio-una-herramienta",
+  titleId = `${id}-title`,
+  uiId = "home.expertise",
+} = Astro.props;
+const expertise = copy[locale].expertise;
+const titleLines = expertise.title.split("\n");
+---
+
+<section id={id} class="expertise surface--depth" aria-labelledby={titleId} data-ui-id={uiId}>
+  <div class="expertise__inner container">
+    <header class="expertise__intro" data-ui-id={`${uiId}.heading`}>
+      <p class="expertise__kicker eyebrow">{expertise.kicker}</p>
+      <h2 id={titleId} class="expertise__title">
+        {titleLines.map((line) => <span>{line}</span>)}
+      </h2>
+      <p class="expertise__body">{expertise.body}</p>
+    </header>
+
+    <ul class="expertise__list" aria-label={expertise.listLabel} data-ui-id={`${uiId}.list`}>
+      {expertise.items.map((item, index) => (
+        <li class="expertise__service" data-ui-id={`${uiId}.service-${index + 1}`}>
+          <span class="expertise__number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+          <div class="expertise__service-copy">
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+          </div>
+          <svg class="expertise__arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M7 17 17 7M7 7h10v10" />
+          </svg>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .expertise {
+    padding-block: 3.5rem;
+  }
+
+  .expertise__inner {
+    display: grid;
+    gap: 2.125rem;
+  }
+
+  .expertise__intro {
+    display: grid;
+    gap: 1.875rem;
+    max-inline-size: 23.75rem;
+  }
+
+  .expertise__kicker {
+    color: var(--color-accent);
+    font-size: 0.6875rem;
+    letter-spacing: 0.109em;
+    text-transform: uppercase;
+  }
+
+  .expertise__title {
+    color: var(--color-paper);
+    font-size: clamp(2.625rem, 2.143rem + 2.143vw, 3.25rem);
+    font-weight: 500;
+    line-height: 1.07;
+    letter-spacing: -0.035em;
+    text-wrap: initial;
+  }
+
+  .expertise__title span { display: block; }
+
+  .expertise__body {
+    color: var(--color-muted-dark);
+    font-size: clamp(1.0625rem, 1.014rem + 0.215vw, 1.125rem);
+    line-height: 1.55;
+  }
+
+  .expertise__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .expertise__service {
+    display: grid;
+    grid-template-columns: 1.5rem minmax(0, 1fr) 1.5rem;
+    column-gap: 1.25rem;
+    align-items: start;
+    border-block-start: 1px solid #355053;
+    padding-block: 1.5625rem;
+  }
+
+  .expertise__number {
+    padding-block-start: 0.25rem;
+    color: #80a8aa;
+    font-family: var(--font-mono), monospace;
+    font-size: 0.6875rem;
+    line-height: 1.5;
+  }
+
+  .expertise__service-copy {
+    display: grid;
+    gap: 0.625rem;
+  }
+
+  .expertise__service h3 {
+    color: var(--color-paper);
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.16;
+    letter-spacing: -0.025em;
+    text-wrap: initial;
+  }
+
+  .expertise__service p {
+    max-inline-size: 41rem;
+    color: var(--color-muted-dark);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .expertise__arrow {
+    justify-self: end;
+    margin-block-start: 0.1875rem;
+    color: var(--color-accent);
+  }
+
+  @media (min-width: 48rem) {
+    .expertise {
+      padding-block: clamp(4rem, 5.208vw, 5.5rem);
+    }
+
+    .expertise__inner { gap: clamp(3rem, 5.208vw, 4.5rem); }
+    .expertise__service h3 { font-size: 1.625rem; }
+  }
+
+  @media (min-width: 64rem) {
+    .expertise__inner {
+      grid-template-columns: minmax(20rem, 23.75rem) minmax(0, 1fr);
+      align-items: start;
+      gap: clamp(4rem, 6.944vw, 6.25rem);
+    }
+
+    .expertise__service h3 { font-size: 1.75rem; }
+  }
+</style>
