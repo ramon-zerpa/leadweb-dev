@@ -1,0 +1,308 @@
+---
+import { copy, type Locale } from "../content/copy";
+import NeonBorder from "./NeonBorder.astro";
+
+interface Props {
+  locale: Locale;
+  id: string;
+}
+
+const { locale, id } = Astro.props;
+const hero = copy[locale].hero;
+---
+
+<figure class="hero-scene" data-hero-scene data-locale={locale} data-ui-id="home.hero.scene">
+  <div id={id} class="scene-art" aria-hidden="true">
+    <div class="scene-guides" data-scene-part="guides"></div>
+    <div class="scene-scan" data-scene-part="scan"></div>
+    <p class="scene-label">{hero.sceneLabel}</p>
+    <div class="scene-parallax" data-scene-parallax>
+    <div class="scene-float" data-scene-float>
+    <div class="scene-layer scene-layer--structure" data-scene-part="foundation" data-scene-motion></div>
+    <div class="scene-layer scene-layer--layout" data-scene-part="layout" data-scene-motion></div>
+    <div class="scene-card" data-scene-part="card" data-scene-motion>
+      <div class="scene-blueprint" data-scene-part="blueprint" data-scene-motion>
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <div class="scene-topbar" data-scene-part="topbar">
+        <span>leadweb.dev</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 17 17 7M7 7h10v10" /></svg>
+      </div>
+      <p class="scene-kicker" data-scene-part="kicker">{hero.sceneMiniKicker}</p>
+      <p class="scene-title scene-title--interface" data-scene-part="title" data-scene-motion>{hero.sceneMiniTitle}</p>
+      <p class="scene-title scene-title--structure" data-scene-part="structureTitle" data-scene-motion>{hero.sceneStructureTitle}</p>
+      <span class="scene-mini-action" data-scene-part="action">{hero.sceneMiniAction}</span>
+      <div class="scene-sculpture" data-scene-motion>
+        {[0, 1, 2, 3].map((index) => (
+          <span class="scene-plane" style={`--plane: ${index}`} data-scene-plane>
+            <span class="scene-plane-fill" data-scene-motion></span>
+          </span>
+        ))}
+      </div>
+    </div>
+    <div class="scene-badge" data-scene-part="badge" data-scene-motion>
+      <NeonBorder radius="4px" />
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5L12 3ZM20 2v4m-2-2h4" />
+      </svg>
+      <span>{hero.badge}</span>
+    </div>
+    </div>
+    </div>
+  </div>
+  <figcaption id={`${id}-caption`} class="sr-only">{hero.sceneCaption}</figcaption>
+  <div class="scene-controls-space">
+      <button class="scene-pause" type="button" data-scene-pause data-pause-label={hero.pauseMotion} data-resume-label={hero.resumeMotion} aria-label={hero.pauseMotion} hidden>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path data-pause-icon d="M8 5v14M16 5v14" /><path data-play-icon d="m8 5 11 7-11 7Z" />
+        </svg>
+        <span data-motion-label>{hero.pauseMotion}</span>
+      </button>
+  </div>
+</figure>
+
+<script>
+  import "../scripts/hero-scene";
+</script>
+
+<style>
+  .hero-scene {
+    container-type: inline-size;
+    inline-size: 100%;
+    max-inline-size: 37.25rem;
+    min-inline-size: 0;
+    margin-inline: auto;
+  }
+
+  /* Proportional coordinates belong only to this decorative drawing. */
+  .scene-art {
+    container-type: inline-size;
+    position: relative;
+    aspect-ratio: 596 / 486;
+    overflow: hidden;
+  }
+
+  .scene-parallax, .scene-float {
+    position: absolute;
+    inset: 0;
+    transform-origin: 50% 50%;
+  }
+
+  .scene-scan {
+    position: absolute;
+    inset: 15% 9% auto 5%;
+    block-size: 1px;
+    background: linear-gradient(90deg, transparent, #8afff5, transparent);
+    box-shadow: 0 0 18px #53e3de99;
+    opacity: 0;
+  }
+
+  .scene-guides {
+    position: absolute;
+    inset: 9.9% 8.4% 0 6.7%;
+    background: repeating-linear-gradient(90deg, #3b858530 0 1px, transparent 1px 15.05%);
+    transform-origin: bottom;
+    mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 78%, transparent);
+  }
+
+  .scene-label {
+    display: none;
+    position: absolute;
+    inset-block-start: 9.4cqi;
+    inset-inline-start: 3.35%;
+    color: #a4d9d8;
+    font: 400 1.678cqi / 1.5 var(--font-mono), monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .scene-layer {
+    position: absolute;
+    inline-size: 74.67%;
+    border: 1px solid #53e3de70;
+    border-radius: 1cqi;
+    transform-origin: top left;
+  }
+
+  .scene-layer--structure {
+    inset-block-start: 34.56cqi;
+    inset-inline-start: 2%;
+    block-size: 43.96cqi;
+    background: #0a25266b;
+    transform: rotate(-12deg);
+  }
+
+  .scene-layer--layout {
+    inset-block-start: 24.5cqi;
+    inset-inline-start: 7.55%;
+    block-size: 46.98cqi;
+    background: #102d3280;
+    border-color: #53e3de99;
+    transform: rotate(-4deg);
+  }
+
+  .scene-card {
+    position: absolute;
+    inset-block-start: 16.107cqi;
+    inset-inline-start: 10.74%;
+    inline-size: 76.17%;
+    block-size: 54.027cqi;
+    overflow: hidden;
+    border: 1px solid #6db5bb;
+    border-radius: 1.34cqi;
+    background: #172c30;
+    box-shadow: 0 3.69cqi 6cqi #00000055;
+    transform: rotate(6deg);
+    transform-origin: top left;
+  }
+
+  .scene-blueprint {
+    position: absolute;
+    inset: 17% 5% 10%;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-rows: 12% 1fr 16%;
+    gap: 8%;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .scene-blueprint span {
+    border: 1px solid #53e3de55;
+    background: repeating-linear-gradient(135deg, #53e3de06 0 1px, transparent 1px 8px);
+  }
+
+  .scene-blueprint span:first-child { grid-column: 1 / -1; }
+  .scene-blueprint span:nth-child(3) { grid-row: span 2; }
+
+  .scene-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    block-size: 11.8%;
+    padding-inline: 4%;
+    border-block-end: 1px solid #385356;
+    color: #d9f4f1;
+    font: 400 1.51cqi / 1 var(--font-mono), monospace;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  .scene-topbar svg { inline-size: 2.35cqi; block-size: auto; color: #7cd6d6; }
+
+  .scene-kicker, .scene-title, .scene-mini-action {
+    position: absolute;
+    inset-inline-start: 5.3%;
+  }
+
+  .scene-kicker {
+    inset-block-start: 19.25%;
+    color: #80b7bb;
+    font: 400 1.678cqi / 1.2 var(--font-mono), monospace;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .scene-title {
+    inset-block-start: 31%;
+    max-inline-size: 58%;
+    color: var(--color-paper);
+    font-size: 8.22cqi;
+    font-weight: 500;
+    line-height: 1.02;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+
+  .scene-title--structure { color: #77a9ab; font-size: 7.13cqi; opacity: 0; }
+
+  .scene-mini-action {
+    display: grid;
+    place-items: center;
+    inset-block-start: 74.85%;
+    inline-size: 28.2%;
+    block-size: 8.1%;
+    border-radius: 0.34cqi;
+    background: var(--color-accent);
+    color: #0a2224;
+    font: 400 1.175cqi / 1 var(--font-mono), monospace;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .scene-sculpture { position: absolute; inset: 0; }
+
+  .scene-plane {
+    position: absolute;
+    inset-inline-start: calc(64.1% + var(--plane) * 3.52%);
+    inset-block-start: calc(23.6% + var(--plane) * 5.9%);
+    inline-size: 11.9%;
+    block-size: calc(49.7% - var(--plane) * 3.73%);
+    overflow: hidden;
+    border: 0.5px solid #6ce2db;
+    background: #0c252a;
+    transform: rotate(13deg);
+    transform-origin: top left;
+  }
+
+  .scene-plane-fill { display: block; inline-size: 100%; block-size: 100%; background: linear-gradient(90deg, #163b43, var(--plane-color, #1f6b78)); }
+  .scene-plane:nth-child(2) { --plane-color: #2095a0; }
+  .scene-plane:nth-child(3) { --plane-color: #41bac1; }
+  .scene-plane:nth-child(4) { --plane-color: #8ce5df; }
+
+  .scene-badge {
+    display: none;
+    position: absolute;
+    inset-block-start: 72.148cqi;
+    inset-inline-end: 8.9%;
+    align-items: center;
+    min-block-size: 9.56cqi;
+    gap: 2cqi;
+    padding: 2cqi 2.68cqi;
+    border: 1px solid #386066;
+    border-radius: 0.67cqi;
+    background: #0e1d21;
+    color: var(--color-paper);
+    font-size: 2.517cqi;
+    line-height: 1.6;
+    white-space: nowrap;
+  }
+
+  .scene-badge > svg:not([data-neon-border]) { inline-size: 3.52cqi; block-size: auto; color: var(--color-accent); }
+  .hero-scene[data-locale="es"] .scene-badge { font-size: 2.013cqi; }
+
+  .scene-controls-space {
+    display: flex;
+    justify-content: center;
+    min-block-size: 2.75rem;
+    margin-block-start: 0.875rem;
+  }
+
+  .scene-pause {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-block-size: 2.75rem;
+    padding: 0.5rem 0.875rem;
+    border: 1px solid var(--color-control-border);
+    border-radius: 999px;
+    background: #0b1d2080;
+    color: var(--color-muted-dark);
+    font-size: 0.75rem;
+    line-height: 1.5;
+    cursor: pointer;
+  }
+
+  .scene-pause:hover { color: var(--color-paper); border-color: var(--color-accent); }
+  .scene-pause:focus-visible { outline-color: var(--color-accent); }
+  .scene-pause svg { flex: none; pointer-events: none; }
+  [data-play-icon], [data-user-paused="true"] [data-pause-icon] { display: none; }
+  [data-user-paused="true"] [data-play-icon] { display: block; }
+
+  @media (min-width: 48rem) {
+    .scene-art { aspect-ratio: 596 / 496; }
+    .scene-label { display: block; }
+    .scene-badge { display: flex; }
+  }
+</style>

@@ -1,0 +1,184 @@
+# Lead Web: entrega de diseño v1
+
+Fecha: 2026-09-06.
+
+Estado: diseño v1 aprobado; base y cabecera implementadas. Hero con nueva entrada de 2,4 s, ambiente pausable, respuesta al puntero y titular typewriter de tres frases, autorizados por el usuario. Revisión visual abierta; permanecer en el hero. Consultar `HANDOFF-IMPLEMENTACION.md` para el estado técnico y las verificaciones vigentes.
+
+Este documento complementa `PLAN-LEADWEB.md` y permite continuar el trabajo sin depender del historial del chat.
+
+## 1. Recuperación tras el corte
+
+La comprobación de Pencil confirmó que el diseño no se perdió. Existen diez tableros de diseño y un tablero de referencias, con sus capas editables. Algunas pantallas están fuera del viewport actual del editor, no ausentes del documento.
+
+Tras el corte se cerró esta documentación. Posteriormente quedó registrada la aprobación visual y comenzó la implementación; el usuario confirmó su continuidad el 2026-09-06. La revisión de diseño descrita aquí es histórica y no sustituye la verificación del sitio construido.
+
+## 2. Documento editable
+
+- Archivo activo: `C:\Users\user\Downloads\new-lead-web\design-preview\pencil-design-new-leadweb.pen`, indicado por el usuario y confirmado por MCP el 2026-09-06.
+- Acceder exclusivamente mediante herramientas MCP de Pencil.
+- No leer, editar ni intentar descifrar el `.pen` con herramientas de filesystem.
+- El archivo editable ya está dentro de `design-preview/` en el workspace. La ruta anterior en el almacenamiento interno de Pencil es histórica. No se ha realizado commit ni push del archivo.
+- Las exportaciones son referencias visuales, no sustituyen las capas del documento ni contienen una implementación funcional.
+
+## 3. Inventario de tableros
+
+Las dimensiones están expresadas en píxeles de diseño. Las alturas son propias de cada composición, no alturas fijas que deban imponerse en CSS.
+
+| Frame | Contenido | Dimensiones | Exportación local |
+| --- | --- | --- | --- |
+| `WRA6V` | Portada completa EN, escritorio | 1440 x 4517 | `design-preview/WRA6V.webp` |
+| `lUMvX` | Portada completa EN, móvil | 390 x 6576 | `design-preview/lUMvX.webp` |
+| `NqfbI` | Caso Disoca EN, escritorio | 1440 x 2331 | `design-preview/NqfbI.webp` |
+| `sTgdp` | Caso Disoca EN, móvil | 390 x 3083 | `design-preview/sTgdp.webp` |
+| `lb8Ru` | Sistema visual, colores, tipografía y CTA | 1440 x 499 | `design-preview/lb8Ru.webp` |
+| `Ds17j` | Storyboard Structure / Interface | 1440 x 768 | `design-preview/Ds17j.webp` |
+| `z8NPQ` | Foco, validación, envío, éxito y error | 1440 x 550 | `design-preview/z8NPQ.webp` |
+| `A5bxI` | Menú móvil abierto | 390 x 800 | `design-preview/A5bxI.webp` |
+| `qNP1M` | Adaptación ES de cabecera, escritorio | 1440 x 890 | `design-preview/qNP1M.webp` |
+| `HZEXm` | Adaptación ES de cabecera, móvil | 390 x 1113 | `design-preview/HZEXm.webp` |
+| `bi8Au` | Referencias: captura real, retrato, logos e imagen de Disoca | 800 x 2421 | Solo en Pencil |
+
+El componente reutilizable `IKYC1` representa el CTA primario por defecto.
+
+Los once tableros se confirmaron en el archivo vigente mediante MCP. Los diseños de caso Disoca se conservan como referencia futura: la implementación v1 enlaza directamente a `https://disoca.com/`, sin crear páginas internas de casos.
+
+`design-preview/export.pdf` reúne ocho vistas de revisión: portada EN escritorio/móvil, caso EN escritorio/móvil, movimiento, formulario y cabeceras ES escritorio/móvil. El sistema visual y el menú abierto tienen exportaciones WebP separadas.
+
+## 4. Recursos confirmados
+
+| Recurso | Fuente | Copia para el proyecto |
+| --- | --- | --- |
+| Retrato | `C:\Users\user\Documents\Recursos Mios Nuevo\generated-image.png` | `design-assets/ZGJdX.png`, 1024 x 1024 |
+| Logo maestro | `C:\Users\user\Documents\Recursos Mios Nuevo\LWD Recursos\LWD Transparent Logo.png` | `design-assets/rRfF3.png`, 400 x 400 |
+| Captura de Disoca | Sección `#top` de `https://disoca.com/`, obtenida con el navegador integrado | Recurso dentro del documento Pencil |
+| Imagen de construcción | `https://disoca.com/images/stock/hero.webp` | Recurso dentro del documento Pencil |
+
+Se cotejaron visualmente las dos copias PNG con los archivos proporcionados. No se regeneró el rostro ni se rediseñó el logo. El retrato se recorta dentro de los marcos de diseño, sin deformarlo. El PNG del logo conserva su transparencia.
+
+Los PNG exportados son recursos de trabajo, no un formato obligatorio para la web final. Generar variantes optimizadas durante la implementación, preservando la identidad.
+
+La captura de Disoca refleja el viewport disponible en el navegador integrado. En los mockups se muestra un recorte de esa captura real, no una auditoría o captura completa de escritorio a 1440 px.
+
+El usuario confirmó diseño y desarrollo con Astro. No inferir métricas de velocidad, conversiones ni relación comercial directa a partir de la captura. Antes de publicar el caso, confirmar recursos autorizados y la redacción final.
+
+## 5. Dirección creativa
+
+Concepto: Ingeniería visible.
+
+- Mantener la identidad cian/azul del logo, con fondos grafito y papel cálido.
+- Usar composición editorial, títulos de gran escala y alternancia de densidad.
+- Mostrar trabajo real antes de desarrollar la lista de servicios.
+- Utilizar filas de servicios en lugar de una cuadrícula genérica de tarjetas.
+- La fotografía identifica a la persona responsable y refuerza confianza en una contratación remota.
+- No presentar a Ramón como ubicado en Florida: su base real es Mérida, Venezuela.
+
+| Token | Valor |
+| --- | --- |
+| Ink | `#091214` |
+| Paper | `#F3F4EF` |
+| Accent / CTA | `#53E3DE` |
+| Depth / sección oscura secundaria | `#112629` |
+| Texto secundario sobre oscuro | `#A7B8B8` |
+| Texto secundario ajustado sobre claro | `#506A62` |
+| Borde de campo oscuro | `#628084` |
+| Borde de opciones / controles | `#607B7D` |
+| Pestaña seleccionada | `#4B7275` |
+| Tipografía principal | Instrument Sans |
+| Anotaciones técnicas | IBM Plex Mono |
+
+Escala de espaciado: 8, 16, 24, 32, 48, 64 y 96. Margen base de escritorio: 64; móvil: 24. No copiar posiciones absolutas de todas las capas a la implementación: utilizar layout fluido, contenido intrínseco y puntos de adaptación probados.
+
+Criterio responsive aprobado posteriormente por el usuario: revisar **390, 768, 1024 y 1440 px**, con comprobaciones adicionales intermedias y menores. No son cuatro media queries obligatorias: los cambios se introducen cuando la composición lo necesita. La cabecera usa menú móvil por debajo de 1024 px (80 px de altura) y navegación completa desde ese ancho (96 px). El logo móvil conserva proporción cuadrada a 44 px y la cabecera usa el margen global de 24 px.
+
+Refinamiento de marca solicitado en código: símbolo a la izquierda y firma de dos líneas a la derecha, centrada verticalmente con él. “Lead Web” en blanco a `0.75rem`, peso 400 y caja natural; debajo, con 3 px de separación, `</Dev_>` a `0.875rem`, peso 600, distribuido en el mismo ancho y con degradado turquesa–azul inspirado en el símbolo. Se aplica en cabecera y menú móvil. El logo maestro y Pencil conservan sus archivos actuales.
+
+Refinamiento posterior autorizado: el guion bajo de la firma parpadea como cursor en ciclos de 1,1 s, conservando su espacio; pausa y movimiento reducido lo dejan visible. El degradado aprobado `#00ded3 → #00bddd → #2576ef` también se aplica al texto del typewriter y sus colores a los brillos del header/badge. Esta extensión de identidad se concentra en los acentos protagonistas del hero.
+
+El usuario valoró muy positivamente este resultado y pidió un hover sencillo: turquesa sólido `#53e3de` para elementos del menú e idioma alternativo; el idioma actual no cambia con hover. El selector usa `|`, con separación visual igual a ambos lados: 8 px en cabecera y 16 px en el menú móvil.
+
+Ajuste de cierre del bloque: separación entre la caja del símbolo y la firma de 4 px en móvil/tablet y 8 px en escritorio; mismo ancho de firma y alineación vertical. El favicon se obtiene del logo maestro, manteniendo forma, degradado y transparencia, en PNG de 96 px e ICO de 16/32/48 px. El archivo Pencil conserva el diseño original; estos refinamientos viven en código.
+
+## 6. Mensaje y recorrido
+
+Cabecera EN: “Stand out. Stay fast. Win trust.”
+
+Adaptación ES: “Impacta. Carga rápido. Inspira confianza.” La cabecera española usa una escala tipográfica distinta para acomodar el idioma sin desbordamientos. No forzar el mismo número de caracteres o líneas.
+
+Actualización autorizada en código: la última línea escribe y borra tres frases en loop con cursor titilante. EN: “Win trust.” → “Get leads.” → “Sell more.”. ES: “Inspira confianza.” → “Genera contactos.” → “Impulsa ventas.”. Las dos primeras líneas permanecen fijas. Se reserva la altura necesaria para evitar saltos y se conserva el titular original completo para tecnologías de asistencia y como fallback sin scripts. No se modificó el archivo Pencil.
+
+Peso final solicitado: **700 en la línea animada**, frente a 500 en las dos superiores. Se mantiene la escala EN y la escala ES móvil/tablet. Solo la línea animada ES en escritorio se reduce un 2 % para conservar sus saltos y proporciones. Instrument Sans 700 real incluida en las fuentes locales.
+
+Recorrido principal: propuesta y CTA, experiencia, Disoca, servicios, fundador, proceso y contacto.
+
+CTA comercial: “Discuss your project”. Envío del formulario: “Send project inquiry”. Español: “Hablemos de tu proyecto”. Emplear redacción estadounidense en inglés.
+
+La portada incluye 13+ años de experiencia y Lead Web desde 2015. La formación correcta es UPTM Kleber Ramírez. Las agencias se presentan como experiencia profesional, no como una lista automática de clientes directos.
+
+## 7. Movimiento propuesto
+
+El tablero `Ds17j` es un storyboard estático, no una animación ejecutable.
+
+1. La estructura inicial es visible y el titular y CTA ya pueden utilizarse.
+2. El storyboard original proponía 650–900 ms. La nueva prueba autorizada usa 2,4 s para dar tiempo a estructura, ensamblaje de planos y revelado de la interfaz.
+3. La versión actual mantiene flotación e iluminación suaves, con un único control de pausa/reanudación. Se retiraron las opciones Interface/Structure y repetición al simplificar la barra por aprobación del usuario.
+
+No implementar un loader obligatorio, sustitución del cursor ni scrolljacking. El usuario autorizó posteriormente movimiento ambiental continuo y efecto ligado al mouse: esa petición sustituye la restricción original de bucles para este ambiente. Debe poder pausarse y suspenderse fuera de pantalla o al ocultar la pestaña. Con movimiento reducido, mostrar directamente la composición final. En móvil se utiliza una escena simplificada y controles de 44 px; el efecto del puntero solo se activa con hover/puntero preciso desde 768 px.
+
+La ilustración no debe contener información imprescindible que solo pueda leerse dentro de un canvas o una miniatura. Mantener texto, controles y descripción accesibles fuera de la decoración.
+
+El typewriter comparte pausa con la escena y los bordes de neón. Se detiene si su propia línea sale de pantalla o la pestaña está oculta. Con movimiento reducido se mantiene la primera frase estática y se oculta el cursor. La animación no genera anuncios repetidos en lectores de pantalla.
+
+El usuario aprobó la firma y autorizó corregir los cortes del fondo: la iluminación vive ahora en una capa del ancho completo del hero, separada del contenedor del contenido y del dibujo, con máscara que desvanece los extremos superior/inferior. Después pidió que la forma fuera más circular: ambos gradientes utilizan radios circulares. La ilustración conserva su recorte; las guías también se desvanecen en sus extremos.
+
+Refinamiento vigente del neón: el usuario rechazó el aspecto de “gusanito” de los segmentos SVG y aportó `C:\Users\user\Videos\Icecream Screen Recorder\efecto brillo.mp4`, una grabación del chat de Pencil. Se revisaron fotogramas de sus 18,37 s: contorno fino, reflejos difusos y transiciones de color. La implementación usa un borde CSS de 1 px y halo desenfocado con dos zonas de luz turquesa/cian/azul que se desvanecen a transparente; ciclos de 7 s en “Let’s talk” y 8 s en “Human-led. AI-powered.”. Se retiraron los trazos sólidos y la cabeza de partícula. El único botón de pausa controla también ambos contornos y el guion bajo de la firma. Movimiento reducido conserva los bordes estáticos originales; en móvil el CTA superior y el badge mantienen sus reglas de visibilidad anteriores.
+
+CSS y Web Animations API siguen siendo la opción inicial. Cualquier dependencia adicional debe justificar su utilidad y pasar el presupuesto de rendimiento.
+
+Actualización de implementación: la primera transición simultánea de 800 ms fue sustituida por una secuencia de 2,4 s: esquema inicial, apertura de capas, cuatro planos escalonados, material y contenido final. La composición flota después y una luz del fondo sigue al puntero con inclinación leve de la escena. Sigue usando CSS/Web Animations API, sin Remotion. Los cambios son una prueba autorizada, no una aprobación visual final; el storyboard Pencil no se ha modificado. Revisar el resultado antes de continuar otras secciones.
+
+## 8. Estados de interfaz
+
+- Formulario vacío en las portadas, con etiquetas permanentes y campos requeridos indicados.
+- Teléfono opcional figura en el copy y handoff; comprobar el requisito operativo al integrar Formspree antes de modificar el comportamiento productivo actual.
+- Foco visible, email inválido, envío en curso, aceptación y fallo en `z8NPQ`.
+- Conservar el contenido del formulario ante error y evitar envíos duplicados.
+- El estado de éxito representa aceptación de Formspree; no demuestra recepción de correo.
+- Menú móvil abierto en `A5bxI`; en código requerirá foco gestionado, cierre por teclado y navegación comprobada.
+- Hover y foco del CTA en `lb8Ru`.
+
+Los controles de Pencil son capas y estados visuales. No se han ejecutado envíos, navegación web, pruebas de teclado ni scripts de interacción.
+
+## 9. Verificación realizada
+
+- Documento recuperado después del corte: 10 tableros de diseño y uno de referencias presentes.
+- Ningún contenedor principal mantiene `placeholder: true`.
+- Revisión visual de portada, caso, retrato, cabeceras ES, storyboard, menú y estados.
+- Corregidos tamaños de tipografía móvil, límites de marcos, deformación de imagen y texto de envío.
+- Cuatro avisos de clipping restantes: las capturas reales de Disoca, recortadas intencionalmente dentro de cuatro mockups. No corresponden a texto de página o controles inaccesibles.
+- Cotejo visual de los PNG exportados de foto y logo.
+- Comprobación de contraste sobre 336 nodos de texto usando colores y el fondo sólido declarado más próximo, con umbrales de 4,5:1 para texto normal y 3:1 para texto grande. Sin resultados bajo esos umbrales tras las correcciones.
+- Bordes de campos ajustados a una combinación calculada de 3,90:1; selección de pestaña frente a su contenedor, 3,04:1.
+
+La comprobación de contraste no reproduce todos los efectos de composición, imágenes, gradientes, opacidades o rendering del navegador. No es una certificación WCAG. Las ilustraciones y referencias no son contenido de lectura evaluado como interfaz principal.
+
+Durante la entrega visual original no se realizaron build, pruebas funcionales ni auditoría SEO del rediseño. Las verificaciones del bloque actual se registran en `HANDOFF-IMPLEMENTACION.md`. PageSpeed, Core Web Vitals de campo y QA del sitio completo siguen pendientes.
+
+## 10. Trabajo aún pendiente
+
+1. Permanecer en la revisión del hero: layout, estilos base, cabecera y primera versión funcional ya existen. El usuario solicita mayor efecto WOW; no continuar otras secciones todavía.
+2. Revisar editorialmente los textos EN/ES ya escritos en `src/content/copy.ts`; las maquetas españolas de Pencil siguen limitadas a las cabeceras.
+3. Validar narrativa y recursos de Disoca para publicación, sin métricas inventadas y con enlace externo en v1.
+4. Cerrar privacidad, contenido definitivo, estados adicionales necesarios y comportamiento responsive entre los anchos de referencia.
+5. Repetir las comprobaciones funcionales y de coste al refinar la animación del hero. El typewriter se registra en la sección 14 del handoff técnico; la sección 13 conserva las pruebas de escena/ambiente y la 12 la primera versión.
+6. Completar las demás secciones, páginas bilingües, Formspree, SEO/CRO, migración y pruebas descritas en `PLAN-LEADWEB.md`.
+7. Confirmar acceso a Namecheap, backup, document root y autorización antes de publicar.
+
+La dirección visual v1 está aprobada para implementación. El cierre editorial y las verificaciones del sitio completo siguen pendientes. No presentar las adaptaciones ES como maquetas completas ni la existencia del copy como páginas implementadas.
+
+## 11. Git y publicación
+
+Repositorio: https://github.com/ramon-zerpa/leadweb-dev
+
+La entrega original verificó el remoto como público y vacío. El 2026-09-06 el usuario autorizó el primer commit y push del proyecto después de los refinamientos de favicon/firma, sobre la rama existente `master`. El checkpoint incluye Markdown, código, recursos, `.pen` y sus exportaciones de revisión. El PDF de `design-preview/export.pdf` es la exportación del diseño. Esta autorización de guardado no incluye sustituir la web publicada ni desplegar en el hosting.
+
+No subir el PDF de LinkedIn, credenciales, backups ni materiales no autorizados. Revisar el tamaño y pertinencia de las exportaciones antes de decidir cuáles versionar.

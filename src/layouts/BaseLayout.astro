@@ -1,0 +1,89 @@
+---
+import { Font } from "astro:assets";
+import { copy, locales, type Locale } from "../content/copy";
+import "../styles/global.css";
+
+interface Props {
+  locale: Locale;
+  title?: string;
+  description?: string;
+  ogTitle?: string;
+  /** Supply both equivalent routes only once both pages exist. */
+  alternates?: Record<Locale, `/${string}`>;
+  /** Use false for pages such as the 404 that have no canonical URL. */
+  canonicalPath?: `/${string}` | false;
+  noindex?: boolean;
+}
+
+const {
+  locale,
+  title = copy[locale].meta.title,
+  description = copy[locale].meta.description,
+  ogTitle = Astro.props.title ?? copy[locale].meta.ogTitle,
+  alternates,
+  canonicalPath,
+  noindex = false,
+} = Astro.props;
+
+if (!Astro.site) {
+  throw new Error("BaseLayout requires the site URL in astro.config.mjs.");
+}
+
+const canonical = canonicalPath === false || noindex
+  ? undefined
+  : new URL(canonicalPath ?? Astro.url.pathname, Astro.site);
+
+const languageLinks = alternates && canonical
+  ? (Object.keys(locales) as Locale[]).map((language) => ({
+      hreflang: locales[language].hreflang,
+      href: new URL(alternates[language], Astro.site),
+      ogLocale: locales[language].hreflang.replace("-", "_"),
+      language,
+    }))
+  : [];
+---
+
+<!doctype html>
+<html lang={locales[locale].html}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#091214" />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96" />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    {canonical && <link rel="canonical" href={canonical} />}
+    {languageLinks.map(({ hreflang, href }) => (
+      <link rel="alternate" hreflang={hreflang} href={href} />
+    ))}
+    {languageLinks.length > 0 && alternates && (
+      <link rel="alternate" hreflang="x-default" href={new URL(alternates.en, Astro.site)} />
+    )}
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={copy[locale].brandFull} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={locales[locale].hreflang.replace("-", "_")} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {languageLinks.filter(({ language }) => language !== locale).map(({ ogLocale }) => (
+      <meta property="og:locale:alternate" content={ogLocale} />
+    ))}
+
+    <Font cssVariable="--font-sans" preload={[{ weight: 400, subset: "latin" }]} />
+    <Font cssVariable="--font-mono" />
+    <slot name="head" />
+  </head>
+  <body data-locale={locale}>
+    <a class="skip-link" href="#main-content" data-ui-id="site.skip-link">
+      {copy[locale].skip}
+    </a>
+    <slot name="header" />
+    <main id="main-content" tabindex="-1" data-ui-id="site.main">
+      <slot />
+    </main>
+    <slot name="footer" />
+  </body>
+</html>

@@ -1,0 +1,71 @@
+---
+interface Props {
+  duration?: string;
+  radius?: string;
+}
+
+const { duration = "8s", radius = "3px" } = Astro.props;
+---
+
+<span class="neon-border" data-neon-border aria-hidden="true" style={`--orbit-duration: ${duration}; --orbit-radius: ${radius}`}>
+  <span class="neon-halo"></span>
+  <span class="neon-edge"></span>
+</span>
+
+<script>
+  import "../scripts/neon-border";
+</script>
+
+<style>
+  @property --neon-angle {
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0deg;
+  }
+
+  .neon-border {
+    position: absolute;
+    inset: -1px;
+    border-radius: var(--orbit-radius);
+    pointer-events: none;
+    animation: neon-orbit var(--orbit-duration) linear infinite;
+    animation-play-state: paused;
+  }
+
+  .neon-edge, .neon-halo {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .neon-edge::before, .neon-halo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    /* Two soft pools of light fade to transparency along a fine contour. */
+    background: conic-gradient(from var(--neon-angle),
+      transparent 0deg,
+      #00ded300 25deg, #00ded370 65deg, var(--color-brand-turquoise) 95deg,
+      #00bddd80 125deg, #00bddd00 165deg,
+      transparent 185deg,
+      #2576ef00 205deg, #2576efb3 245deg, var(--color-brand-cyan) 275deg,
+      #2576ef66 305deg, #2576ef00 345deg, transparent 360deg);
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+  }
+
+  /* Blur the masked ring from its parent so the glow can spill outside it. */
+  .neon-halo { filter: blur(6px); opacity: 0.8; }
+  .neon-halo::before { inset: -1px; padding: 3px; }
+  [data-orbit-running="true"] { animation-play-state: running; }
+
+  @keyframes neon-orbit {
+    to { --neon-angle: 360deg; }
+  }
+
+  @media (prefers-reduced-motion: reduce), (forced-colors: active) {
+    .neon-border { display: none; animation: none; }
+  }
+</style>

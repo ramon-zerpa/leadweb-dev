@@ -1,0 +1,289 @@
+---
+import NavBrand from "./NavBrand.astro";
+import NavLinks from "./NavLinks.astro";
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+import NeonBorder from "./NeonBorder.astro";
+import { copy, type Locale } from "../content/copy";
+
+interface Props {
+  locale: Locale;
+  homeHref?: string;
+  alternateHref?: string;
+  /** Add each destination when its section has been implemented. */
+  sectionLinks?: Partial<Record<"work" | "expertise" | "about", string>>;
+  contactHref?: string;
+}
+
+const { locale, homeHref, alternateHref, sectionLinks = {}, contactHref } = Astro.props;
+const content = copy[locale];
+const contact = contactHref ?? `mailto:${content.contact.email}`;
+const items = (["work", "expertise", "about"] as const).map((key) => ({
+  label: content.nav[key],
+  href: sectionLinks[key],
+}));
+const mobileItems = [...items, { label: content.nav.contactLabel, href: contact }];
+---
+
+<header id="site-header" class="site-header" data-ui-id="site.header">
+  <div class="container header-row">
+    <NavBrand locale={locale} href={homeHref} />
+    <nav class="desktop-navigation" aria-label={content.nav.label}>
+      <NavLinks items={items} />
+    </nav>
+    <div class="header-actions">
+      <LanguageSwitcher locale={locale} alternateHref={alternateHref} />
+      <a class="contact-action" href={contact} data-ui-id="site.header.contact">
+        <NeonBorder duration="7s" />
+        {content.nav.contact}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M7 17 17 7M7 7h10v10" />
+        </svg>
+      </a>
+      <button
+        class="menu-button"
+        type="button"
+        aria-label={content.nav.menu}
+        aria-expanded="false"
+        aria-controls="site-menu"
+        aria-haspopup="dialog"
+        data-menu-open
+        hidden
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <dialog id="site-menu" class="mobile-menu" aria-label={content.nav.mobileLabel} data-ui-id="site.header.mobile-menu">
+    <div class="menu-panel">
+      <div class="menu-heading">
+        <NavBrand locale={locale} href={homeHref} />
+        <button class="menu-button" type="button" aria-label={content.nav.close} data-menu-close autofocus>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="m6 6 12 12M6 18 18 6" />
+          </svg>
+        </button>
+      </div>
+      <nav class="mobile-navigation" aria-label={content.nav.label}>
+        <NavLinks items={mobileItems} mode="mobile" />
+      </nav>
+      <LanguageSwitcher locale={locale} alternateHref={alternateHref} fullNames />
+      <a class="menu-primary-action" href={contact}>
+        {content.hero.cta}
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M7 17 17 7M7 7h10v10" />
+        </svg>
+      </a>
+      <p class="menu-location">{content.contact.location}</p>
+    </div>
+  </dialog>
+
+  <noscript>
+    <nav class="container no-script-navigation" aria-label={content.nav.label}>
+      <NavLinks items={mobileItems} mode="mobile" />
+    </nav>
+  </noscript>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-ui-id="site.header"]');
+  const opener = header?.querySelector<HTMLButtonElement>("[data-menu-open]");
+  const closer = header?.querySelector<HTMLButtonElement>("[data-menu-close]");
+  const dialog = header?.querySelector<HTMLDialogElement>("dialog");
+
+  if (header && opener && closer && dialog) {
+    const desktop = window.matchMedia("(min-width: 64rem)");
+    opener.hidden = false;
+
+    opener.addEventListener("click", () => {
+      if (desktop.matches || dialog.open) return;
+      dialog.showModal();
+      dialog.scrollTop = 0;
+      opener.setAttribute("aria-expanded", "true");
+      document.documentElement.classList.add("site-menu-open");
+    });
+
+    closer.addEventListener("click", () => dialog.close());
+
+    // The native dialog also fires close after Escape and restores opener focus.
+    dialog.addEventListener("close", () => {
+      opener.setAttribute("aria-expanded", "false");
+      document.documentElement.classList.remove("site-menu-open");
+    });
+
+    dialog.addEventListener("keydown", (event) => {
+      if (event.key !== "Tab") return;
+      const controls = dialog.querySelectorAll<HTMLElement>("a[href], button:not([disabled])");
+      const first = controls[0];
+      const last = controls[controls.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last?.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first?.focus();
+      }
+    });
+
+    dialog.addEventListener("click", (event) => {
+      const link = event.target instanceof Element
+        ? event.target.closest<HTMLAnchorElement>("a[href]")
+        : null;
+      if (!link) return;
+      dialog.close();
+
+      const destination = new URL(link.href);
+      if (destination.origin !== location.origin || destination.pathname !== location.pathname || !destination.hash) return;
+
+      const target = document.getElementById(decodeURIComponent(destination.hash.slice(1)));
+      if (target) {
+        const hadTabindex = target.hasAttribute("tabindex");
+        if (!hadTabindex) {
+          target.tabIndex = -1;
+          target.addEventListener("blur", () => target.removeAttribute("tabindex"), { once: true });
+        }
+        target.focus({ preventScroll: true });
+      }
+    });
+
+    desktop.addEventListener("change", ({ matches }) => {
+      if (matches && dialog.open) {
+        dialog.close();
+        header.querySelector<HTMLAnchorElement>(".nav-brand")?.focus();
+      }
+    });
+  }
+</script>
+
+<style>
+  .site-header {
+    border-block-end: 1px solid var(--color-line);
+    background: var(--color-ink);
+  }
+
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-1);
+    min-block-size: 5rem;
+  }
+
+  .header-actions {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .desktop-navigation,
+  .contact-action {
+    display: none;
+  }
+
+  .menu-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+    border: 0;
+    padding: 0;
+    color: var(--color-paper);
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .menu-button:hover { color: var(--color-accent); }
+  .menu-button[hidden] { display: none; }
+
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    inline-size: 100%;
+    max-inline-size: none;
+    block-size: 100dvh;
+    max-block-size: none;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
+    color: var(--color-paper);
+    background: var(--color-ink);
+  }
+
+  .mobile-menu::backdrop { background: var(--color-ink); }
+  :global(html.site-menu-open) { overflow: hidden; }
+
+  .menu-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+    min-block-size: 100dvh;
+    padding: 0 var(--page-gutter) var(--space-4);
+  }
+
+  .menu-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex: none;
+    min-block-size: 5rem;
+    gap: var(--space-2);
+  }
+
+  .mobile-navigation { flex: 1; }
+
+  .menu-primary-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+    min-block-size: 2.75rem;
+    padding: 1.125rem 1.375rem;
+    border: 1px solid var(--color-accent);
+    border-radius: 3px;
+    color: var(--color-ink);
+    background: var(--color-accent);
+    font-weight: 600;
+    line-height: 1.35;
+    text-decoration: none;
+  }
+
+  .menu-primary-action:hover { background: var(--color-paper); border-color: var(--color-paper); }
+  .menu-primary-action:focus-visible { outline-color: var(--color-paper); }
+  .menu-primary-action svg { flex: none; }
+  .menu-location { color: var(--color-muted-dark); font-size: 0.8125rem; }
+  .no-script-navigation { padding-block-end: var(--space-4); }
+
+  /* At 1024px there is room for the complete navigation in both languages. */
+  @media (min-width: 64rem) {
+    .header-row { min-block-size: 6rem; gap: var(--space-4); }
+    .header-actions { gap: 1.75rem; }
+    .desktop-navigation { display: block; }
+    .menu-button,
+    .no-script-navigation { display: none; }
+
+    .contact-action {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 1.375rem;
+      min-block-size: 2.75rem;
+      padding: 0.75rem 1.125rem;
+      border: 1px solid var(--color-control-border);
+      border-radius: 3px;
+      color: var(--color-paper);
+      font-size: 0.875rem;
+      line-height: 1.25;
+      text-decoration: none;
+      transition: border-color var(--motion-fast) ease, color var(--motion-fast) ease;
+    }
+
+    .contact-action:hover { color: var(--color-accent); border-color: var(--color-accent); }
+  }
+</style>

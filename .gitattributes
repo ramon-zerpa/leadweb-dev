@@ -1,0 +1,2 @@
+# Preserve the Pencil document as an opaque design asset, without line-ending conversion.
+*.pen binary
