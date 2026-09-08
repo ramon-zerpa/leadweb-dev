@@ -19,10 +19,11 @@ const contactId = "lets-build-something-that-matters";
 const contactHref = "#" + contactId;
 ---
 
-<BaseLayout locale="en">
+<BaseLayout locale="en" alternates={{ en: "/", es: "/es/" }}>
   <Nav
     slot="header"
     locale="en"
+    alternateHref="/es/"
     sectionLinks={{ work: "#" + workId, expertise: "#" + expertiseId, about: "#" + founderId }}
     contactHref={contactHref}
   />

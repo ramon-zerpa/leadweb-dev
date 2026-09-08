@@ -63,7 +63,7 @@ const titleLines = work.title.split("\n");
         <h3 class="project-copy__name">{work.projectName}</h3>
         <p class="project-copy__summary">{work.summary}</p>
         <p class="project-copy__description">{work.description}</p>
-        <ul class="project-copy__tags" aria-label={`${work.projectName} technologies`}>
+        <ul class="project-copy__tags" aria-label={work.tagsLabel}>
           {work.tags.map((tag) => <li>{tag}</li>)}
         </ul>
         <a

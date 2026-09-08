@@ -97,7 +97,11 @@ const [experienceLabel, experienceDetails] = founder.experience.split("\n");
     aspect-ratio: 1 / 1.08;
     overflow: visible;
     border-radius: 0.75rem;
-    transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out);
+    box-shadow:
+      0 0 0 1px #00ded36b,
+      0 0 1.25rem #00ded34a,
+      0 1.125rem 1.75rem #0912142e,
+      0 2.5rem 3.75rem #09121424;
   }
 
   .founder__portrait-frame > :global(.neon-border) {
@@ -132,21 +136,6 @@ const [experienceLabel, experienceDetails] = founder.experience.split("\n");
   .founder__portrait-media :global(img) {
     object-fit: cover;
     object-position: center;
-  }
-
-  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    .founder__portrait-frame:hover {
-      transform: translate3d(0, -0.5rem, 0) scale(1.012);
-      box-shadow:
-        0 0 0 1px #00ded36b,
-        0 0 1.25rem #00ded34a,
-        0 1.125rem 1.75rem #0912142e,
-        0 2.5rem 3.75rem #09121424;
-    }
-
-    .founder__portrait-frame:hover > :global(.neon-border) :global(.neon-halo) {
-      filter: blur(9px);
-    }
   }
 
   .founder__caption {

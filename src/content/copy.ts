@@ -100,6 +100,7 @@ export const copy = {
       description:
         "An editorial website for an engineering and construction company. Clear services, a distinctive visual system and a focused path to contact.",
       tags: ["Design", "Development", "Astro"],
+      tagsLabel: "DISOCA technologies",
       link: "Explore the project",
       href: "https://disoca.com/",
       previewUrl: "disoca.com",
@@ -199,9 +200,7 @@ export const copy = {
       messagePlaceholder: "Your goals, your current website, your next big idea…",
       submit: "Send project inquiry",
       sending: "Sending your inquiry…",
-      privacy:
-        "Your details are used to respond to your inquiry. Privacy policy.",
-      privacyLink: "Privacy policy",
+      privacy: "Your details are used to respond to your inquiry.",
       successTitle: "Your inquiry was submitted.",
       success:
         "Thank you for sharing your project. I’ll get back to you as soon as I can.",
@@ -316,7 +315,7 @@ export const copy = {
     stats: [
       {
         value: "13+",
-        label: "años construyendo para negocios",
+        label: "Años creando código",
         compactLabel: "Años de experiencia",
       },
       {
@@ -339,6 +338,7 @@ export const copy = {
       description:
         "Un sitio editorial para una empresa de ingeniería y construcción. Servicios claros, un sistema visual propio y un camino directo al contacto.",
       tags: ["Diseño", "Desarrollo", "Astro"],
+      tagsLabel: "Tecnologías de DISOCA",
       link: "Ver el proyecto",
       href: "https://disoca.com/",
       previewUrl: "disoca.com",
@@ -438,9 +438,7 @@ export const copy = {
       messagePlaceholder: "Tus objetivos, tu sitio actual, tu siguiente idea…",
       submit: "Enviar consulta",
       sending: "Enviando tu consulta…",
-      privacy:
-        "Tus datos se usan para responder a tu consulta. Política de privacidad.",
-      privacyLink: "Política de privacidad",
+      privacy: "Tus datos se usan para responder a tu consulta.",
       successTitle: "Tu consulta fue enviada.",
       success:
         "Gracias por compartir tu proyecto. Te responderé lo antes posible.",

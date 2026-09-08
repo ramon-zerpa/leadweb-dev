@@ -1,0 +1,39 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Hero from "../../components/Hero.astro";
+import Stats from "../../components/Stats.astro";
+import Work from "../../components/Work.astro";
+import Expertise from "../../components/Expertise.astro";
+import Founder from "../../components/Founder.astro";
+import Process from "../../components/Process.astro";
+import Contact from "../../components/Contact.astro";
+import StickyWhatsApp from "../../components/StickyWhatsApp.astro";
+import BottomBar from "../../components/BottomBar.astro";
+
+const workId = "hecho-con-proposito-hecho-para-verse";
+const expertiseId = "mas-que-un-sitio-una-herramienta";
+const founderId = "la-persona-detras-de-los-pixeles";
+const processId = "un-proceso-claro-sin-caja-negra";
+const contactId = "construyamos-algo-que-importe";
+const contactHref = "#" + contactId;
+---
+
+<BaseLayout locale="es" alternates={{ en: "/", es: "/es/" }}>
+  <Nav
+    slot="header"
+    locale="es"
+    alternateHref="/"
+    sectionLinks={{ work: "#" + workId, expertise: "#" + expertiseId, about: "#" + founderId }}
+    contactHref={contactHref}
+  />
+  <Hero locale="es" contactHref={contactHref} workHref={"#" + workId} />
+  <Stats locale="es" />
+  <Work locale="es" id={workId} />
+  <Expertise locale="es" id={expertiseId} />
+  <Founder locale="es" id={founderId} />
+  <Process locale="es" id={processId} />
+  <Contact locale="es" id={contactId} />
+  <StickyWhatsApp locale="es" />
+  <BottomBar slot="footer" locale="es" />
+</BaseLayout>

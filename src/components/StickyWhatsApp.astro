@@ -22,7 +22,8 @@ const sticky = copy[locale].stickyWhatsapp;
   data-sticky-whatsapp
   data-sticky-start={startId}
   data-ui-id={uiId}
-  aria-hidden="true"
+  aria-label={sticky.label}
+  inert
 >
   <a
     class="whatsapp-cta__action"
@@ -56,18 +57,14 @@ const sticky = copy[locale].stickyWhatsapp;
 
     if (!target) {
       cta.setAttribute("data-sticky-ready", "");
+      cta.removeAttribute("inert");
       continue;
     }
 
     const update = () => {
       const ready = target.getBoundingClientRect().top <= 0;
       cta.toggleAttribute("data-sticky-ready", ready);
-
-      if (ready) {
-        cta.removeAttribute("aria-hidden");
-      } else {
-        cta.setAttribute("aria-hidden", "true");
-      }
+      cta.toggleAttribute("inert", !ready);
     };
 
     let scheduled = false;
