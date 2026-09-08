@@ -1,0 +1,274 @@
+---
+import { Picture } from "astro:assets";
+import portrait from "../assets/portrait.png";
+import NeonBorder from "./NeonBorder.astro";
+import { copy, type Locale } from "../content/copy";
+
+interface Props {
+  locale: Locale;
+  id?: string;
+  titleId?: string;
+  uiId?: string;
+}
+
+const {
+  locale,
+  id = locale === "en" ? "the-person-behind-the-pixels" : "la-persona-detras-de-los-pixeles",
+  titleId = `${id}-title`,
+  uiId = "home.founder",
+} = Astro.props;
+const founder = copy[locale].founder;
+const titleLines = founder.title.split("\n");
+const [experienceLabel, experienceDetails] = founder.experience.split("\n");
+---
+
+<section id={id} class="founder surface--paper" aria-labelledby={titleId} data-ui-id={uiId}>
+  <div class="founder__inner container">
+    <figure class="founder__portrait" data-ui-id={`${uiId}.portrait`}>
+      <div class="founder__portrait-frame">
+        <div class="founder__portrait-media">
+          <Picture
+            src={portrait}
+            widths={[342, 424]}
+            sizes="(min-width: 64rem) 26.5rem, calc(100vw - 2 * var(--page-gutter))"
+            formats={["avif", "webp"]}
+            alt={founder.portraitAlt}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <NeonBorder duration="8s" radius="0.75rem" />
+      </div>
+      <figcaption class="founder__caption">
+        <span>{founder.name}</span>
+        <span>{founder.location}</span>
+      </figcaption>
+    </figure>
+
+    <div class="founder__biography" data-ui-id={`${uiId}.biography`}>
+      <p class="founder__kicker eyebrow">{founder.kicker}</p>
+      <h2 id={titleId} class="founder__title">
+        {titleLines.map((line) => <span>{line}</span>)}
+      </h2>
+      <p class="founder__intro">{founder.intro}</p>
+      <p class="founder__ai">{founder.ai}</p>
+      <div class="founder__credentials">
+        <p>
+          <span>{experienceLabel}</span>
+          {experienceDetails}
+        </p>
+        <p>{founder.education}</p>
+      </div>
+      <a
+        class="founder__linkedin"
+        href={founder.linkedinHref}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-ui-id={`${uiId}.linkedin`}
+      >
+        {founder.linkedin}
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M7 17 17 7M7 7h10v10" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .founder {
+    padding-block: 3.5rem;
+    overflow: clip;
+  }
+
+  .founder__inner {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .founder__portrait {
+    display: grid;
+    gap: 1.25rem;
+    margin: 0;
+  }
+
+  .founder__portrait-frame {
+    position: relative;
+    aspect-ratio: 1 / 1.08;
+    overflow: visible;
+    border-radius: 0.75rem;
+    transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out);
+  }
+
+  .founder__portrait-frame > :global(.neon-border) {
+    inset: -2px;
+  }
+
+  .founder__portrait-frame > :global(.neon-border) :global(.neon-edge) {
+    filter: brightness(1.18) saturate(1.2);
+  }
+
+  .founder__portrait-frame > :global(.neon-border) :global(.neon-halo) {
+    filter: blur(8px);
+    opacity: 1;
+  }
+
+  .founder__portrait-media {
+    position: relative;
+    inline-size: 100%;
+    block-size: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+    background: #dce4df;
+  }
+
+  .founder__portrait-media :global(picture),
+  .founder__portrait-media :global(img) {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  .founder__portrait-media :global(img) {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .founder__portrait-frame:hover {
+      transform: translate3d(0, -0.5rem, 0) scale(1.012);
+      box-shadow:
+        0 0 0 1px #00ded36b,
+        0 0 1.25rem #00ded34a,
+        0 1.125rem 1.75rem #0912142e,
+        0 2.5rem 3.75rem #09121424;
+    }
+
+    .founder__portrait-frame:hover > :global(.neon-border) :global(.neon-halo) {
+      filter: blur(9px);
+    }
+  }
+
+  .founder__caption {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 0 2% 0 2%;
+    color: #435c58;
+    font-family: var(--font-mono), monospace;
+    font-size: 0.625rem;
+    line-height: 1.4;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .founder__caption span:last-child {
+    color: #506a62;
+    font-size: 0.5625rem;
+  }
+
+  .founder__biography {
+    display: grid;
+    gap: 1.5625rem;
+    align-content: start;
+  }
+
+  .founder__kicker {
+    color: #546d68;
+    font-size: 0.625rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .founder__title {
+    color: var(--color-ink);
+    font-size: clamp(2.25rem, 1.875rem + 1.667vw, 3rem);
+    font-weight: 500;
+    line-height: 1.08;
+    letter-spacing: -0.038em;
+    text-wrap: initial;
+  }
+
+  .founder__title span { display: block; }
+
+  .founder__intro {
+    max-inline-size: 45.25rem;
+    color: #385650;
+    font-size: clamp(1.0625rem, 1.032rem + 0.135vw, 1.125rem);
+    line-height: 1.6;
+  }
+
+  .founder__ai {
+    max-inline-size: 45.25rem;
+    color: #526d66;
+    font-size: clamp(1rem, 0.97rem + 0.135vw, 1.0625rem);
+    line-height: 1.6;
+  }
+
+  .founder__credentials {
+    display: grid;
+    gap: 0.875rem;
+    color: #516c64;
+    font-family: var(--font-mono), monospace;
+    font-size: 0.625rem;
+    line-height: 1.8;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+  }
+
+  .founder__credentials p { display: grid; }
+  .founder__credentials span { color: #718680; }
+
+  .founder__linkedin {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    gap: 0.875rem;
+    min-block-size: 2.75rem;
+    padding-block: 0.625rem;
+    color: var(--color-ink);
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .founder__linkedin:hover { color: #244642; text-decoration: underline; }
+  .founder__linkedin svg { flex: none; }
+
+  @media (max-width: 47.999rem) {
+    .founder__title { font-size: 2.125rem; }
+  }
+
+  @media (min-width: 48rem) {
+    .founder {
+      padding-block: clamp(4rem, 5.208vw, 5.5rem);
+    }
+
+    .founder__inner { gap: clamp(2.5rem, 5.208vw, 4.5rem); }
+    .founder__portrait { max-inline-size: 26.5rem; }
+  }
+
+  @media (min-width: 64rem) {
+    .founder {
+      padding-block: 6rem;
+    }
+
+    .founder__inner {
+      grid-template-columns: minmax(19rem, 26.5rem) minmax(0, 45.25rem);
+      align-items: center;
+      column-gap: clamp(4rem, 6.944vw, 6.25rem);
+      padding-inline: calc(var(--page-gutter) + 2rem);
+    }
+
+    .founder__portrait {
+      inline-size: 100%;
+      max-inline-size: none;
+    }
+
+    .founder__caption { font-size: 0.6875rem; }
+    .founder__caption span:last-child { font-size: 0.625rem; }
+    .founder__kicker { font-size: 0.6875rem; }
+    .founder__credentials { font-size: 0.6875rem; }
+  }
+</style>

@@ -1,0 +1,147 @@
+---
+import { copy, type Locale } from "../content/copy";
+
+interface Props {
+  locale: Locale;
+  id?: string;
+  titleId?: string;
+  uiId?: string;
+}
+
+const {
+  locale,
+  id = locale === "en" ? "a-clear-process-no-black-box" : "un-proceso-claro-sin-caja-negra",
+  titleId = `${id}-title`,
+  uiId = "home.process",
+} = Astro.props;
+const process = copy[locale].process;
+---
+
+<section id={id} class="process surface--paper" aria-labelledby={titleId} data-ui-id={uiId}>
+  <div class="process__inner container">
+    <div class="process__intro" data-ui-id={`${uiId}.heading`}>
+      <p class="process__kicker eyebrow">{process.kicker}</p>
+      <h2 id={titleId} class="process__title">{process.title}</h2>
+    </div>
+
+    <ol class="process__steps" aria-label={process.title} data-ui-id={`${uiId}.steps`}>
+      {process.steps.map((step) => (
+        <li class="process__step" data-ui-id={`${uiId}.step-${step.num}`}>
+          <span class="process__number" aria-hidden="true">{step.num}</span>
+          <h3>{step.title}</h3>
+          <p>{step.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process {
+    padding-block: clamp(2rem, 5vw, 2.5rem) 3.5rem;
+  }
+
+  .process__inner {
+    display: grid;
+    gap: 1.75rem;
+  }
+
+  .process__intro {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .process__kicker {
+    color: #546d68;
+    font-size: 0.6875rem;
+    letter-spacing: 0.109em;
+    text-transform: uppercase;
+  }
+
+  .process__title {
+    max-inline-size: 21.375rem;
+    color: var(--color-ink);
+    font-size: 1.8125rem;
+    font-weight: 500;
+    line-height: 1.12;
+    letter-spacing: -0.023em;
+    text-wrap: initial;
+  }
+
+  .process__steps {
+    display: grid;
+    gap: 1.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .process__step {
+    display: grid;
+    align-content: start;
+    gap: 0.9375rem;
+    min-block-size: 9.4375rem;
+    border-block-start: 1px solid #cdd5ce;
+    padding-block-start: 1.5rem;
+  }
+
+  .process__number {
+    color: #506a62;
+    font-family: var(--font-mono), monospace;
+    font-size: 0.75rem;
+    line-height: 1.33;
+  }
+
+  .process__step h3 {
+    color: var(--color-ink);
+    font-size: 1.5625rem;
+    font-weight: 500;
+    line-height: 1.24;
+    letter-spacing: -0.025em;
+    text-wrap: initial;
+  }
+
+  .process__step p {
+    max-inline-size: 26rem;
+    color: #526d66;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  @media (min-width: 48rem) {
+    .process {
+      padding-block-end: clamp(4rem, 5.208vw, 5.5rem);
+    }
+
+    .process__inner { gap: 2rem; }
+  }
+
+  @media (min-width: 64rem) {
+    .process {
+      padding-block: 0.75rem 5rem;
+    }
+
+    .process__intro {
+      grid-template-columns: minmax(0, 1fr) max-content;
+      align-items: start;
+      gap: 2rem;
+    }
+
+    .process__kicker {
+      padding-block-start: 0.75rem;
+    }
+
+    .process__title {
+      max-inline-size: none;
+      justify-self: end;
+      font-size: 1.875rem;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .process__steps {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2rem;
+    }
+  }
+</style>

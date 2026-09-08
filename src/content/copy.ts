@@ -48,6 +48,11 @@ export const copy = {
       menu: "Open menu",
       close: "Close menu",
     },
+    stickyWhatsapp: {
+      kicker: "DIRECT LINE",
+      label: "Chat on WhatsApp",
+      ariaLabel: "Chat with Ramón on WhatsApp",
+    },
     hero: {
       kicker: "WEBSITES ENGINEERED FOR FLORIDA BUSINESSES",
       lines: ["Stand out.", "Stay fast.", "Win trust."],
@@ -174,6 +179,9 @@ export const copy = {
       email: "info@leadweb.dev",
       whatsappLabel: "WhatsApp  +58 424 706 7872",
       whatsappHref: "https://wa.me/584247067872",
+      socialsLabel: "Lead Web social profiles",
+      linkedinLabel: "LinkedIn",
+      instagramLabel: "Instagram",
       location: "Based in Venezuela. Working with Florida.",
       name: "Your name",
       namePlaceholder: "How should I address you?",
@@ -204,6 +212,7 @@ export const copy = {
     },
     footer: {
       copyright: "© 2026 Lead Web Developers",
+      tagline: "With love from VE to USA.",
       linkedin: "LinkedIn",
       privacy: "Privacy",
       instagram: "Instagram",
@@ -277,6 +286,11 @@ export const copy = {
       langOther: "EN",
       menu: "Abrir menú",
       close: "Cerrar menú",
+    },
+    stickyWhatsapp: {
+      kicker: "LÍNEA DIRECTA",
+      label: "Hablemos por WhatsApp",
+      ariaLabel: "Hablar con Ramón por WhatsApp",
     },
     hero: {
       kicker: "Web a medida para negocios de Florida",
@@ -404,6 +418,9 @@ export const copy = {
       email: "info@leadweb.dev",
       whatsappLabel: "WhatsApp  +58 424 706 7872",
       whatsappHref: "https://wa.me/584247067872",
+      socialsLabel: "Redes sociales de Lead Web",
+      linkedinLabel: "LinkedIn",
+      instagramLabel: "Instagram",
       location: "Desde Venezuela. Trabajando con Florida.",
       name: "Tu nombre",
       namePlaceholder: "¿Cómo te llamo?",
@@ -434,6 +451,7 @@ export const copy = {
     },
     footer: {
       copyright: "© 2026 Lead Web Developers",
+      tagline: "Con cariño desde VE hasta EE. UU.",
       linkedin: "LinkedIn",
       privacy: "Privacidad",
       instagram: "Instagram",

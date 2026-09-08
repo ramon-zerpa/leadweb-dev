@@ -1,0 +1,239 @@
+---
+import NeonBorder from "./NeonBorder.astro";
+import { copy, type Locale } from "../content/copy";
+
+interface Props {
+  locale: Locale;
+  startId?: string;
+  uiId?: string;
+}
+
+const {
+  locale,
+  startId = locale === "en" ? "lead-web-experience" : "experiencia-de-lead-web",
+  uiId = "site.whatsapp-cta",
+} = Astro.props;
+const contact = copy[locale].contact;
+const sticky = copy[locale].stickyWhatsapp;
+---
+
+<aside
+  class="whatsapp-cta"
+  data-sticky-whatsapp
+  data-sticky-start={startId}
+  data-ui-id={uiId}
+  aria-hidden="true"
+>
+  <a
+    class="whatsapp-cta__action"
+    href={contact.whatsappHref}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={sticky.ariaLabel}
+  >
+    <NeonBorder duration="6s" radius="999px" />
+    <span class="whatsapp-cta__icon" aria-hidden="true">
+      <svg viewBox="0 0 448 512" fill="currentColor">
+        <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-156.9Zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6Zm101.5-138.5c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8s-14.4 18-17.6 21.8c-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.7 23.5 9.1 31.5 11.7 13.2 4.2 25.2 3.6 34.7 2.2 10.6-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6Z" />
+      </svg>
+    </span>
+    <span class="whatsapp-cta__copy">
+      <span class="whatsapp-cta__kicker">{sticky.kicker}</span>
+      <span class="whatsapp-cta__label">{sticky.label}</span>
+    </span>
+    <svg class="whatsapp-cta__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <path d="M7 17 17 7M7 7h10v10" />
+    </svg>
+  </a>
+</aside>
+
+<script>
+  const stickyCtas = document.querySelectorAll<HTMLElement>("[data-sticky-whatsapp]");
+
+  for (const cta of stickyCtas) {
+    const targetId = cta.dataset.stickyStart;
+    const target = targetId ? document.getElementById(targetId) : null;
+
+    if (!target) {
+      cta.setAttribute("data-sticky-ready", "");
+      continue;
+    }
+
+    const update = () => {
+      const ready = target.getBoundingClientRect().top <= 0;
+      cta.toggleAttribute("data-sticky-ready", ready);
+
+      if (ready) {
+        cta.removeAttribute("aria-hidden");
+      } else {
+        cta.setAttribute("aria-hidden", "true");
+      }
+    };
+
+    let scheduled = false;
+    const scheduleUpdate = () => {
+      if (scheduled) return;
+
+      scheduled = true;
+      requestAnimationFrame(() => {
+        scheduled = false;
+        update();
+      });
+    };
+
+    update();
+    window.addEventListener("scroll", scheduleUpdate, { passive: true });
+    window.addEventListener("resize", scheduleUpdate);
+  }
+</script>
+
+<style>
+  .whatsapp-cta {
+    position: fixed;
+    z-index: 50;
+    inset-inline: var(--page-gutter);
+    inset-block-end: max(1rem, env(safe-area-inset-bottom));
+    display: grid;
+    justify-items: center;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate3d(0, 1rem, 0);
+    transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out), visibility 0s linear 220ms;
+  }
+
+  .whatsapp-cta[data-sticky-ready] {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  .whatsapp-cta__action {
+    position: relative;
+    isolation: isolate;
+    display: inline-flex;
+    align-items: center;
+    pointer-events: auto;
+    inline-size: min(100%, 27rem);
+    min-block-size: 4.25rem;
+    gap: 0.75rem;
+    overflow: visible;
+    border: 1px solid var(--color-control-border);
+    border-radius: 999px;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    color: var(--color-paper);
+    background:
+      radial-gradient(circle at 13% 50%, #53e3de2b, transparent 31%),
+      linear-gradient(135deg, #13282b 0%, #0d1d20 100%);
+    box-shadow:
+      0 0.75rem 2.25rem #020a0cb8,
+      0 0 1.25rem #00ded321;
+    text-decoration: none;
+    transition: transform 260ms var(--ease-out), box-shadow 260ms var(--ease-out), color var(--motion-fast);
+  }
+
+  .whatsapp-cta__action > :global(.neon-border) {
+    z-index: 0;
+    inset: -2px;
+  }
+
+  .whatsapp-cta__action > :global(.neon-border) :global(.neon-edge) {
+    filter: brightness(1.2) saturate(1.25);
+  }
+
+  .whatsapp-cta__action > :global(.neon-border) :global(.neon-halo) {
+    filter: blur(9px);
+    opacity: 1;
+  }
+
+  .whatsapp-cta__icon,
+  .whatsapp-cta__copy,
+  .whatsapp-cta__arrow {
+    position: relative;
+    z-index: 1;
+  }
+
+  .whatsapp-cta__icon {
+    display: grid;
+    flex: none;
+    place-items: center;
+    inline-size: 3rem;
+    block-size: 3rem;
+    border: 1px solid var(--color-brand-turquoise);
+    border-radius: 50%;
+    color: var(--color-brand-turquoise);
+    background: #0b1e21;
+    box-shadow:
+      inset 0 0 0 1px #00ded321,
+      0 0 1.125rem #00ded34a;
+  }
+
+  .whatsapp-cta__icon svg {
+    display: block;
+    inline-size: 1.625rem;
+    block-size: 1.625rem;
+  }
+
+  .whatsapp-cta__copy {
+    display: grid;
+    gap: 0.125rem;
+    min-inline-size: 0;
+  }
+
+  .whatsapp-cta__kicker {
+    color: #8bb7b6;
+    font-family: var(--font-mono), monospace;
+    font-size: 0.5625rem;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+  }
+
+  .whatsapp-cta__label {
+    color: var(--color-paper);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .whatsapp-cta__arrow {
+    flex: none;
+    margin-inline-start: auto;
+    color: var(--color-accent);
+  }
+
+  .whatsapp-cta__action:hover {
+    color: var(--color-paper);
+  }
+
+  .whatsapp-cta__action:focus-visible {
+    outline-color: var(--color-paper);
+  }
+
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .whatsapp-cta__action:hover {
+      transform: translate3d(0, -0.25rem, 0) scale(1.01);
+      box-shadow:
+        0 1.125rem 2.75rem #020a0cd1,
+        0 0 1.75rem #00ded34d,
+        0 0 2.75rem #2576ef26;
+    }
+
+    .whatsapp-cta__action:hover > :global(.neon-border) :global(.neon-halo) {
+      filter: blur(10px);
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .whatsapp-cta {
+      inset-inline: auto var(--page-gutter);
+      justify-items: end;
+    }
+
+    .whatsapp-cta__action {
+      inline-size: auto;
+      min-inline-size: 17.75rem;
+    }
+  }
+</style>

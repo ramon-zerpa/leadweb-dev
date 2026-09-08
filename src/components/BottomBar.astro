@@ -1,0 +1,57 @@
+---
+import { copy, type Locale } from "../content/copy";
+
+interface Props {
+  locale: Locale;
+  uiId?: string;
+}
+
+const { locale, uiId = "site.bottom-bar" } = Astro.props;
+const footer = copy[locale].footer;
+---
+
+<footer class="bottom-bar" data-ui-id={uiId}>
+  <div class="bottom-bar__inner container">
+    <p class="bottom-bar__copyright">{footer.copyright}</p>
+    <p class="bottom-bar__tagline">{footer.tagline}</p>
+  </div>
+</footer>
+
+<style>
+  .bottom-bar {
+    border-block-start: 1px solid var(--color-line);
+    color: var(--color-muted-dark);
+    background: #071113;
+  }
+
+  .bottom-bar__inner {
+    display: grid;
+    gap: 0.5rem;
+    padding-block: 1rem calc(6.25rem + env(safe-area-inset-bottom));
+  }
+
+  .bottom-bar__copyright,
+  .bottom-bar__tagline {
+    font-family: var(--font-mono), monospace;
+    font-size: 0.625rem;
+    line-height: 1.5;
+    letter-spacing: 0.055em;
+  }
+
+  .bottom-bar__copyright { color: #8ba5a5; }
+
+  .bottom-bar__tagline {
+    color: var(--color-accent);
+  }
+
+  @media (min-width: 48rem) {
+    .bottom-bar__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: var(--space-3);
+      padding-block-start: 1.125rem;
+    }
+
+    .bottom-bar__tagline { text-align: end; }
+  }
+</style>

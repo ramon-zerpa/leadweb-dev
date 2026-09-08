@@ -2,7 +2,7 @@
 
 Fecha: 2026-09-06.
 
-Estado: diseño v1 aprobado; cabecera, hero, franja de experiencia, bloque Selected work/DISOCA y Expertise implementados. El usuario valoró el hero y autorizó avanzar por bloques. Hero con entrada de 2,4 s, ambiente pausable, respuesta al puntero y titular typewriter de tres frases. Consultar `HANDOFF-IMPLEMENTACION.md` para el estado técnico y las verificaciones vigentes.
+Estado: diseño v1 aprobado; cabecera, hero, franja de experiencia, bloque Selected work/DISOCA, Expertise, Founder con retrato limpio de borde neón y Process implementados. El usuario valoró el hero y autorizó avanzar por bloques. Hero con entrada de 2,4 s, ambiente pausable, respuesta al puntero y titular typewriter de tres frases. Consultar `HANDOFF-IMPLEMENTACION.md` para el estado técnico y las verificaciones vigentes.
 
 Este documento complementa `PLAN-LEADWEB.md` y permite continuar el trabajo sin depender del historial del chat.
 
@@ -120,6 +120,12 @@ El bloque Selected work se inspeccionó mediante MCP en `rXUQC` (escritorio) y `
 
 Expertise se inspeccionó mediante MCP en `fRzH5` (escritorio) y `xlhDV` (móvil), sin modificar Pencil. La implementación conserva la superficie `#112629`, el label turquesa, el titular de tres líneas, el copy de apoyo y cuatro filas de servicios. Desde 1024 px usa la proporción de introducción de 380 px y lista a la derecha; debajo de ese ancho mantiene la pila de móvil. Los números y flechas comunican la composición visual, sin inventar destinos de navegación.
 
+Founder se inspeccionó mediante MCP en `pth2H` (escritorio) y `WM6UC` (móvil), sin modificar Pencil. La implementación conserva el papel `#F3F4EF`, retrato local aprobado, caption con nombre/ubicación, titular, contexto profesional, formación y enlace a LinkedIn. Desde 1024 px recompone retrato y biografía en dos columnas; debajo usa la pila móvil. El titular de 390 px se ajusta a 34 px para conservar sus tres líneas sin desbordamiento, y el retrato se entrega en AVIF/WebP diferido desde el recurso local. Tras revisar el ensayo de cristal, la dirección vigente deja la foto limpia: sin bisel, reflejos, barrido, halo ambiental ni foco de puntero. El marco adopta proporción `1 / 1.08`, más cercana al cuadrado, y `NeonBorder` del hero recorre su perímetro a 8 s desde 2 px al exterior, con dos zonas turquesa/cian/azul y halo de 8 px. En hover con puntero preciso eleva la foto 8 px, la escala levemente y proyecta sombra inferior; touch y movimiento reducido quedan estáticos. El borde se suspende con movimiento reducido o colores forzados y no depende de Remotion.
+
+Refinamiento posterior de Founder: `.founder__caption` recibe `margin-top: 1rem` y `padding: 0 2% 0 2%` en la regla base, sin sobrescrituras por breakpoint. El caption conserva su alineación y respira con el retrato en toda la escala responsive.
+
+Process se inspeccionó mediante MCP en `zJRVO` (escritorio) y `IfhHN` (móvil), sin modificar Pencil. Conserva la superficie paper, el label “04 / HOW WE GET THERE”, el titular “A clear process. No black box.” y tres pasos claramente numerados. El label y H2 viven en un contenedor neutro; la semántica la aportan el H2 y la lista ordenada. En escritorio, desde 1024 px, el label se mantiene a la izquierda, el titular se alinea a la derecha y los pasos se distribuyen en tres columnas con línea superior `#CDD5CE`. Debajo se apilan con la misma jerarquía y 2–2,5 rem de aire antes del eyebrow. Es una sección deliberadamente sobria que da pausa visual después del retrato, sin efectos animados añadidos.
+
 ## 7. Movimiento propuesto
 
 El tablero `Ds17j` es un storyboard estático, no una animación ejecutable.
@@ -146,17 +152,35 @@ CSS y Web Animations API siguen siendo la opción inicial. Cualquier dependencia
 
 Actualización de implementación: la primera transición simultánea de 800 ms fue sustituida por una secuencia de 2,4 s: esquema inicial, apertura de capas, cuatro planos escalonados, material y contenido final. La composición flota después y una luz del fondo sigue al puntero con inclinación leve de la escena. Sigue usando CSS/Web Animations API, sin Remotion. Los cambios son una prueba autorizada, no una aprobación visual final; el storyboard Pencil no se ha modificado. Revisar el resultado antes de continuar otras secciones.
 
+El ensayo de movimiento independiente de Founder —entrada editorial, barrido, halo y foco de puntero— quedó retirado después de la revisión visual del usuario. La versión vigente mantiene el retrato estático y completo; el contorno `NeonBorder` usa las mismas salvaguardas de visibilidad y movimiento reducido que los bordes del hero. Como interacción local, un hover de puntero preciso levanta la imagen 8 px con una sombra inferior y una escala de 1,2 %, sin ejecutarse en touch ni con movimiento reducido.
+
+Refinamiento vigente del retrato: se retiró el marco de cristal de 10 px, sus reflejos y la iluminación sobre la foto para devolver toda la presencia al retrato. La proporción `1 / 1.08` reduce su altura a 458 px por 424 px de ancho en escritorio. El contorno CSS del hero se aplica directamente a la imagen, se separa 2 px y aumenta el halo a 8 px; conserva dos zonas de luz de marca y duración de 8 s. El borde permanece fino y las luces se difuminan a transparente, sin partículas ni líneas sólidas. El hover de puntero preciso proyecta una sombra inferior como si la foto se levantara de la superficie. En móvil conserva la misma proporción exterior que el retrato y no agrega overflow.
+
+Contact se inspeccionó exclusivamente mediante MCP en `y2H57q` para escritorio y `a897h` para móvil, sin modificar el `.pen`. La implementación conserva su fondo ink, 64/48 px de titular, columnas 510/692 como referencia de escritorio y pila móvil. El formulario mantiene etiquetas permanentes, tres opciones de servicio y los controles oscuros con borde de 1 px; correo y WhatsApp quedan como alternativas reales a la izquierda.
+
+Refinamiento posterior de Contact: el `fieldset` de servicio restablece explícitamente su padding a cero y separa el `legend` 10 px de las opciones. Así “What do you have in mind?” comparte el mismo borde izquierdo y el mismo ritmo etiqueta/control que los demás campos, sin cambiar la composición de Pencil.
+
+El CTA fijo de WhatsApp fue solicitado después de la referencia original y no modifica el archivo Pencil. `StickyWhatsApp.astro` conserva el borde orbital turquesa–cian–azul ya aprobado, con una marca sólida y anillo turquesa sobre un disco ink de 48 px; no usa el verde de WhatsApp. Es una pieza de conversión fija, amplia entre los gutters en móvil y ubicada abajo a la derecha desde tablet. Permanece visual y semánticamente oculta durante el hero y se revela al alcanzar la franja de experiencia; después sigue disponible también durante Contact y el cierre.
+
+Después de `contact__alternatives`, Contact incorpora los enlaces secundarios de LinkedIn e Instagram. Se presentan como dos controles de borde fino para reforzar presencia profesional sin competir con correo, WhatsApp o el formulario; su separación efectiva se reduce de 1,5 a 1 rem y se suma 0,5 rem antes de la ubicación.
+
+La barra inferior también es una incorporación posterior a la referencia y no modifica el archivo Pencil. `BottomBar.astro` usa el slot `footer` del layout: copyright a la izquierda y “With love from VE to USA.” a la derecha desde 768 px, con pila móvil. Su área inferior reservada permite que el CTA de WhatsApp se mantenga fijo hasta el final sin tapar estos textos.
+
 ## 8. Estados de interfaz
 
-- Formulario vacío en las portadas, con etiquetas permanentes y campos requeridos indicados.
-- Teléfono opcional figura en el copy y handoff; comprobar el requisito operativo al integrar Formspree antes de modificar el comportamiento productivo actual.
-- Foco visible, email inválido, envío en curso, aceptación y fallo en `z8NPQ`.
-- Conservar el contenido del formulario ante error y evitar envíos duplicados.
+- Formulario Contact implementado con etiquetas permanentes; nombre, email y mensaje requeridos, teléfono opcional y radios de servicio opcionales.
+- La etiqueta/controles de servicio alinean con los campos de texto: `fieldset` sin padding implícito y separación de 10 px entre `legend` y opciones.
+- CTA fijo de WhatsApp solicitado por el usuario: enlace seguro al número autorizado, disco ink compacto con marca/anillo turquesa y borde de neón de la marca; se oculta en hero, aparece desde la franja de experiencia y permanece visible e interactivo incluso en Contact y el cierre.
+- Redes secundarias en Contact: LinkedIn e Instagram siguen a correo/WhatsApp con borde fino, destino externo seguro, una separación efectiva de 1 rem y 0,5 rem extra antes de la ubicación.
+- Barra inferior: copyright y “With love from VE to USA.” desde `copy.ts`; dos columnas desde 768 px, pila móvil y espacio inferior reservado para el CTA fijo.
+- El destino Formspree registrado usa `name`, `email`, `phone`, `service` y `message`; mantiene su `action` nativo como fallback.
+- Foco visible, email inválido, envío en curso, aceptación y fallo de `z8NPQ` se reflejan en el componente mediante validación nativa, botón deshabilitado y región `aria-live`.
+- Ante fallo se conserva el contenido del formulario y se evita el doble envío mientras la solicitud está pendiente.
 - El estado de éxito representa aceptación de Formspree; no demuestra recepción de correo.
 - Menú móvil abierto en `A5bxI`; en código requerirá foco gestionado, cierre por teclado y navegación comprobada.
 - Hover y foco del CTA en `lb8Ru`.
 
-Los controles de Pencil son capas y estados visuales. No se han ejecutado envíos, navegación web, pruebas de teclado ni scripts de interacción.
+Los controles de Pencil siguen siendo capas y estados visuales. En código se comprobó la presencia del formulario, los anchos, la alineación de servicio, el CTA fijo y la navegación hacia Contact; no se ejecutó ningún envío real ni se confirmó recepción.
 
 ## 9. Verificación realizada
 
@@ -175,12 +199,12 @@ Durante la entrega visual original no se realizaron build, pruebas funcionales n
 
 ## 10. Trabajo aún pendiente
 
-1. Siguiente bloque: `Founder`. Cabecera, hero, franja de experiencia, Work / DISOCA y Expertise ya existen; continuar una sección por vez.
+1. Siguiente bloque: `Footer` ampliado. La barra inferior ya existe como cierre mínimo; cabecera, hero, franja de experiencia, Work / DISOCA, Expertise, Founder, Process y Contact ya existen; continuar una sección por vez.
 2. Revisar editorialmente los textos EN/ES ya escritos en `src/content/copy.ts`; las maquetas españolas de Pencil siguen limitadas a las cabeceras.
 3. Validar narrativa y recursos de Disoca para publicación, sin métricas inventadas y con enlace externo en v1.
 4. Cerrar privacidad, contenido definitivo, estados adicionales necesarios y comportamiento responsive entre los anchos de referencia.
 5. Repetir las comprobaciones funcionales y de coste al refinar la animación del hero. El typewriter se registra en la sección 14 del handoff técnico; la sección 13 conserva las pruebas de escena/ambiente y la 12 la primera versión.
-6. Completar las demás secciones, páginas bilingües, Formspree, SEO/CRO, migración y pruebas descritas en `PLAN-LEADWEB.md`.
+6. Completar Footer, páginas bilingües, privacidad, verificación operativa de Formspree, SEO/CRO, migración y pruebas descritas en `PLAN-LEADWEB.md`.
 7. Confirmar acceso a Namecheap, backup, document root y autorización antes de publicar.
 
 La dirección visual v1 está aprobada para implementación. El cierre editorial y las verificaciones del sitio completo siguen pendientes. No presentar las adaptaciones ES como maquetas completas ni la existencia del copy como páginas implementadas.
