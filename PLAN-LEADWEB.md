@@ -185,7 +185,7 @@ Las búsquedas relacionadas con custom website Florida, website redesign, websit
 
 - Las portadas `/` y `/es/` emiten títulos/descripciones localizados, canonical propio, `hreflang` recíproco `en-US`/`es-US` y `x-default`, Open Graph, Twitter, meta robots, `robots.txt` y sitemap i18n.
 - `BaseLayout.astro` genera JSON-LD de `OnlineBusiness`, `Person`, `WebSite` y `WebPage` con logo local, fundador, servicio a Florida y enlaces sociales confirmados. No usa `LocalBusiness`, `Review` o `AggregateRating`: no hay dirección física de Florida y las reseñas propias no se marcan para resultados enriquecidos.
-- `astro check`, build y validación HTML estricta de las dos páginas emitidas pasaron sin diagnósticos. El presupuesto local confirma HTML comprimible, CSS único y un único script de escena de 5,5 KB sin dependencias pesadas; la puntuación PSI debe capturarse tras el despliegue HTTPS, porque el Lighthouse local estuvo alterado por una extensión ajena al proyecto.
+- `astro check`, build y validación HTML estricta de las dos páginas emitidas pasaron sin diagnósticos. El presupuesto local confirma HTML comprimible, CSS único y un único script de escena de 5,5 KB sin dependencias pesadas. La primera medición PSI de producción devuelve 99 móvil y 100 escritorio; el único ajuste derivado es ampliar la caché a un año de assets versionados mediante `public/.htaccess`, sin asignar caché larga a documentos o archivos de indexación.
 
 ### Mapa de migración obligatorio
 

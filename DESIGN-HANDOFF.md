@@ -197,7 +197,7 @@ Los controles de Pencil siguen siendo capas y estados visuales. En código se co
 
 La comprobación de contraste no reproduce todos los efectos de composición, imágenes, gradientes, opacidades o rendering del navegador. No es una certificación WCAG. Las ilustraciones y referencias no son contenido de lectura evaluado como interfaz principal.
 
-Durante la entrega visual original no se realizaron build, pruebas funcionales ni auditoría SEO del rediseño. El cierre técnico posterior se registra en `HANDOFF-IMPLEMENTACION.md`: build, HTML emitido, semántica y SEO de las portadas EN/ES ya fueron comprobados localmente. PageSpeed y Core Web Vitals de campo siguen pendientes porque requieren el sitio publicado bajo HTTPS, CDN y caché reales.
+Durante la entrega visual original no se realizaron build, pruebas funcionales ni auditoría SEO del rediseño. El cierre técnico posterior se registra en `HANDOFF-IMPLEMENTACION.md`: build, HTML emitido, semántica y SEO de las portadas EN/ES ya fueron comprobados localmente. Tras la publicación, PSI devuelve 99 móvil y 100 escritorio; aún no hay datos de campo porque el dominio es reciente. La regla de caché de assets versionados se incorpora en `public/.htaccess`; Core Web Vitals de campo se evaluarán cuando haya cobertura real de usuarios.
 
 ## 10. Trabajo aún pendiente
 
