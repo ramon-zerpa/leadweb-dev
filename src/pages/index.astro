@@ -7,6 +7,7 @@ import Work from "../components/Work.astro";
 import Expertise from "../components/Expertise.astro";
 import Founder from "../components/Founder.astro";
 import Process from "../components/Process.astro";
+import Testimonials from "../components/Testimonials.astro";
 import Contact from "../components/Contact.astro";
 import StickyWhatsApp from "../components/StickyWhatsApp.astro";
 import BottomBar from "../components/BottomBar.astro";
@@ -15,6 +16,7 @@ const workId = "built-for-purpose-made-to-be-noticed";
 const expertiseId = "more-than-a-website-a-business-tool";
 const founderId = "the-person-behind-the-pixels";
 const processId = "a-clear-process-no-black-box";
+const reviewsId = "trust-earned-in-the-work";
 const contactId = "lets-build-something-that-matters";
 const contactHref = "#" + contactId;
 ---
@@ -24,7 +26,7 @@ const contactHref = "#" + contactId;
     slot="header"
     locale="en"
     alternateHref="/es/"
-    sectionLinks={{ work: "#" + workId, expertise: "#" + expertiseId, about: "#" + founderId }}
+    sectionLinks={{ work: "#" + workId, expertise: "#" + expertiseId, about: "#" + founderId, reviews: "#" + reviewsId }}
     contactHref={contactHref}
   />
   <Hero locale="en" contactHref={contactHref} workHref={"#" + workId} />
@@ -33,6 +35,7 @@ const contactHref = "#" + contactId;
   <Expertise locale="en" id={expertiseId} />
   <Founder locale="en" id={founderId} />
   <Process locale="en" id={processId} />
+  <Testimonials locale="en" id={reviewsId} />
   <Contact locale="en" id={contactId} />
   <StickyWhatsApp locale="en" />
   <BottomBar slot="footer" locale="en" />

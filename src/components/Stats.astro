@@ -22,7 +22,8 @@ const content = copy[locale];
   <dl class="experience-strip__list" data-ui-id={`${uiId}.list`}>
     {content.stats.map((stat, index) => (
       <div class="experience-strip__item" data-ui-id={`${uiId}.item-${index + 1}`}>
-        <dt class="experience-strip__label" aria-label={stat.label}>
+        <dt class="experience-strip__label">
+          <span class="sr-only">{stat.label}</span>
           <span class="experience-strip__label-wide" aria-hidden="true">{stat.label}</span>
           <span class="experience-strip__label-compact" aria-hidden="true">{stat.compactLabel}</span>
         </dt>

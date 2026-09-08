@@ -5,9 +5,21 @@ interface Props {
 }
 
 const { duration = "8s", radius = "3px" } = Astro.props;
+const variants: Record<string, string> = {
+  "8s|3px": "neon-border--default",
+  "7s|3px": "neon-border--header",
+  "8s|4px": "neon-border--scene",
+  "8s|0.75rem": "neon-border--portrait",
+  "6s|999px": "neon-border--cta",
+};
+const variant = variants[`${duration}|${radius}`];
+
+if (!variant) {
+  throw new Error(`Unsupported NeonBorder variant: ${duration} / ${radius}`);
+}
 ---
 
-<span class="neon-border" data-neon-border aria-hidden="true" style={`--orbit-duration: ${duration}; --orbit-radius: ${radius}`}>
+<span class:list={["neon-border", variant]} data-neon-border aria-hidden="true">
   <span class="neon-halo"></span>
   <span class="neon-edge"></span>
 </span>
@@ -31,6 +43,12 @@ const { duration = "8s", radius = "3px" } = Astro.props;
     animation: neon-orbit var(--orbit-duration) linear infinite;
     animation-play-state: paused;
   }
+
+  .neon-border--default { --orbit-duration: 8s; --orbit-radius: 3px; }
+  .neon-border--header { --orbit-duration: 7s; --orbit-radius: 3px; }
+  .neon-border--scene { --orbit-duration: 8s; --orbit-radius: 4px; }
+  .neon-border--portrait { --orbit-duration: 8s; --orbit-radius: 0.75rem; }
+  .neon-border--cta { --orbit-duration: 6s; --orbit-radius: 999px; }
 
   .neon-edge, .neon-halo {
     position: absolute;

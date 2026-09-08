@@ -1,5 +1,6 @@
 ---
-import { Font } from "astro:assets";
+import { Font, getImage } from "astro:assets";
+import logo from "../assets/logo.png";
 import { copy, locales, type Locale } from "../content/copy";
 import "../styles/global.css";
 
@@ -41,6 +42,88 @@ const languageLinks = alternates && canonical
       language,
     }))
   : [];
+
+const siteUrl = new URL("/", Astro.site).href;
+const organizationId = `${siteUrl}#organization`;
+const personId = `${siteUrl}#ramon-zerpa`;
+const websiteId = `${siteUrl}#website`;
+const logoImage = await getImage({ src: logo, width: 400, format: "webp", quality: 90 });
+const logoUrl = new URL(logoImage.src, Astro.site).href;
+const pageSchema = canonical
+  ? {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "OnlineBusiness",
+          "@id": organizationId,
+          name: copy[locale].brandFull,
+          alternateName: copy[locale].brand,
+          url: siteUrl,
+          logo: {
+            "@type": "ImageObject",
+            url: logoUrl,
+            width: 400,
+            height: 400,
+          },
+          description,
+          email: copy[locale].contact.email,
+          contactPoint: {
+            "@type": "ContactPoint",
+            email: copy[locale].contact.email,
+            contactType: "sales",
+            availableLanguage: ["English", "Spanish"],
+          },
+          areaServed: {
+            "@type": "AdministrativeArea",
+            name: "Florida, United States",
+          },
+          sameAs: [
+            copy[locale].founder.linkedinHref,
+            copy[locale].footer.instagramHref,
+          ],
+          founder: { "@id": personId },
+          knowsAbout: [
+            "Website development",
+            "Front-end development",
+            "Astro",
+            "Technical SEO",
+            "Web performance",
+          ],
+        },
+        {
+          "@type": "Person",
+          "@id": personId,
+          name: "Ramón Zerpa",
+          jobTitle: "Front-end developer",
+          url: siteUrl,
+          sameAs: [copy[locale].founder.linkedinHref],
+          worksFor: { "@id": organizationId },
+        },
+        {
+          "@type": "WebSite",
+          "@id": websiteId,
+          url: siteUrl,
+          name: copy[locale].brandFull,
+          alternateName: copy[locale].brand,
+          publisher: { "@id": organizationId },
+          inLanguage: ["en-US", "es-US"],
+        },
+        {
+          "@type": "WebPage",
+          "@id": `${canonical.href}#webpage`,
+          url: canonical.href,
+          name: title,
+          description,
+          inLanguage: locales[locale].hreflang,
+          isPartOf: { "@id": websiteId },
+          about: { "@id": organizationId },
+        },
+      ],
+    }
+  : undefined;
+const pageSchemaJson = pageSchema
+  ? JSON.stringify(pageSchema).replace(/</g, "\\u003c")
+  : undefined;
 ---
 
 <!doctype html>
@@ -53,7 +136,12 @@ const languageLinks = alternates && canonical
     <meta name="theme-color" content="#091214" />
     <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
     <link rel="icon" type="image/png" href="/favicon.png" sizes="96x96" />
-    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta
+      name="robots"
+      content={noindex
+        ? "noindex, follow"
+        : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"}
+    />
     {canonical && <link rel="canonical" href={canonical} />}
     {languageLinks.map(({ hreflang, href }) => (
       <link rel="alternate" hreflang={hreflang} href={href} />
@@ -71,6 +159,11 @@ const languageLinks = alternates && canonical
     {languageLinks.filter(({ language }) => language !== locale).map(({ ogLocale }) => (
       <meta property="og:locale:alternate" content={ogLocale} />
     ))}
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={description} />
+
+    {pageSchemaJson && <script is:inline type="application/ld+json" set:html={pageSchemaJson} />}
 
     <Font cssVariable="--font-sans" preload={[{ weight: 400, subset: "latin" }]} />
     <Font cssVariable="--font-mono" />

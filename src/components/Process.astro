@@ -24,10 +24,32 @@ const process = copy[locale].process;
       <h2 id={titleId} class="process__title">{process.title}</h2>
     </div>
 
-    <ol class="process__steps" aria-label={process.title} data-ui-id={`${uiId}.steps`}>
+    <ol class="process__steps" data-ui-id={`${uiId}.steps`}>
       {process.steps.map((step) => (
         <li class="process__step" data-ui-id={`${uiId}.step-${step.num}`}>
-          <span class="process__number" aria-hidden="true">{step.num}</span>
+          <span class="process__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              {step.num === "01" && (
+                <>
+                  <circle cx="10.5" cy="10.5" r="4.75" />
+                  <path d="m14 14 4.5 4.5" />
+                  <path d="M10.5 8v5M8 10.5h5" />
+                </>
+              )}
+              {step.num === "02" && (
+                <>
+                  <rect x="4" y="5" width="16" height="14" rx="1.5" />
+                  <path d="m9 9-2 3 2 3M15 9l2 3-2 3M13 8.5l-2 7" />
+                </>
+              )}
+              {step.num === "03" && (
+                <>
+                  <circle cx="12" cy="12" r="7.5" />
+                  <path d="m8.5 12 2.35 2.35 4.9-5.25" />
+                </>
+              )}
+            </svg>
+          </span>
           <h3>{step.title}</h3>
           <p>{step.body}</p>
         </li>
@@ -38,7 +60,7 @@ const process = copy[locale].process;
 
 <style>
   .process {
-    padding-block: clamp(2rem, 5vw, 2.5rem) 3.5rem;
+    padding-block: clamp(2rem, 5vw, 2.5rem) 2.5rem;
   }
 
   .process__inner {
@@ -85,11 +107,21 @@ const process = copy[locale].process;
     padding-block-start: 1.5rem;
   }
 
-  .process__number {
-    color: #506a62;
-    font-family: var(--font-mono), monospace;
-    font-size: 0.75rem;
-    line-height: 1.33;
+  .process__icon {
+    display: block;
+    inline-size: 2rem;
+    block-size: 2rem;
+    color: #225f5b;
+  }
+
+  .process__icon svg {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.45;
   }
 
   .process__step h3 {
@@ -110,7 +142,7 @@ const process = copy[locale].process;
 
   @media (min-width: 48rem) {
     .process {
-      padding-block-end: clamp(4rem, 5.208vw, 5.5rem);
+      padding-block-end: clamp(2.5rem, 3.5vw, 3.5rem);
     }
 
     .process__inner { gap: 2rem; }
@@ -118,7 +150,7 @@ const process = copy[locale].process;
 
   @media (min-width: 64rem) {
     .process {
-      padding-block: 0.75rem 5rem;
+      padding-block: 0.75rem 3rem;
     }
 
     .process__intro {

@@ -10,14 +10,14 @@ interface Props {
   homeHref?: string;
   alternateHref?: string;
   /** Add each destination when its section has been implemented. */
-  sectionLinks?: Partial<Record<"work" | "expertise" | "about", string>>;
+  sectionLinks?: Partial<Record<"work" | "expertise" | "about" | "reviews", string>>;
   contactHref?: string;
 }
 
 const { locale, homeHref, alternateHref, sectionLinks = {}, contactHref } = Astro.props;
 const content = copy[locale];
 const contact = contactHref ?? `mailto:${content.contact.email}`;
-const items = (["work", "expertise", "about"] as const).map((key) => ({
+const items = (["work", "expertise", "about", "reviews"] as const).map((key) => ({
   label: content.nav[key],
   href: sectionLinks[key],
 }));
@@ -31,7 +31,7 @@ const mobileItems = [...items, { label: content.nav.contactLabel, href: contact 
       <NavLinks items={items} />
     </nav>
     <div class="header-actions">
-      <LanguageSwitcher locale={locale} alternateHref={alternateHref} />
+      <LanguageSwitcher locale={locale} alternateHref={alternateHref} label={content.nav.languageLabel} />
       <a class="contact-action" href={contact} data-ui-id="site.header.contact">
         <NeonBorder duration="7s" />
         {content.nav.contact}
@@ -66,10 +66,15 @@ const mobileItems = [...items, { label: content.nav.contactLabel, href: contact 
           </svg>
         </button>
       </div>
-      <nav class="mobile-navigation" aria-label={content.nav.label}>
+      <nav class="mobile-navigation" aria-label={content.nav.mobileLabel}>
         <NavLinks items={mobileItems} mode="mobile" />
       </nav>
-      <LanguageSwitcher locale={locale} alternateHref={alternateHref} fullNames />
+      <LanguageSwitcher
+        locale={locale}
+        alternateHref={alternateHref}
+        fullNames
+        label={content.nav.mobileLanguageLabel}
+      />
       <a class="menu-primary-action" href={contact}>
         {content.hero.cta}
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -81,7 +86,7 @@ const mobileItems = [...items, { label: content.nav.contactLabel, href: contact 
   </dialog>
 
   <noscript>
-    <nav class="container no-script-navigation" aria-label={content.nav.label}>
+    <nav class="container no-script-navigation" aria-label={content.nav.fallbackLabel}>
       <NavLinks items={mobileItems} mode="mobile" />
     </nav>
   </noscript>

@@ -6,14 +6,16 @@ interface Props {
   /** Only pass an existing equivalent page, including on privacy pages. */
   alternateHref?: string;
   fullNames?: boolean;
+  label?: string;
 }
 
-const { locale, alternateHref, fullNames = false } = Astro.props;
+const { locale, alternateHref, fullNames = false, label } = Astro.props;
 const otherLocale: Locale = locale === "en" ? "es" : "en";
 const content = copy[locale];
+const navigationLabel = label ?? content.nav.languageLabel;
 ---
 
-<nav class:list={["language-switcher", { "language-switcher--full": fullNames }]} aria-label={content.nav.languageLabel}>
+<nav class:list={["language-switcher", { "language-switcher--full": fullNames }]} aria-label={navigationLabel}>
   <span lang={locale} aria-current="true">
     {fullNames ? locales[locale].name : content.nav.langCurrent}
   </span>

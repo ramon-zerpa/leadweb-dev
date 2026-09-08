@@ -28,7 +28,7 @@ const titleLines = expertise.title.split("\n");
       <p class="expertise__body">{expertise.body}</p>
     </header>
 
-    <ul class="expertise__list" aria-label={expertise.listLabel} data-ui-id={`${uiId}.list`}>
+    <ul class="expertise__list" data-ui-id={`${uiId}.list`}>
       {expertise.items.map((item, index) => (
         <li class="expertise__service" data-ui-id={`${uiId}.service-${index + 1}`}>
           <span class="expertise__number" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>

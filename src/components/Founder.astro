@@ -29,8 +29,8 @@ const [experienceLabel, experienceDetails] = founder.experience.split("\n");
         <div class="founder__portrait-media">
           <Picture
             src={portrait}
-            widths={[342, 424]}
-            sizes="(min-width: 64rem) 26.5rem, calc(100vw - 2 * var(--page-gutter))"
+            widths={[342, 424, 636, 848, 1024]}
+            sizes="(min-width: 48rem) 26.5rem, calc(100vw - 3rem)"
             formats={["avif", "webp"]}
             alt={founder.portraitAlt}
             loading="lazy"
@@ -94,7 +94,7 @@ const [experienceLabel, experienceDetails] = founder.experience.split("\n");
 
   .founder__portrait-frame {
     position: relative;
-    aspect-ratio: 1 / 1.08;
+    aspect-ratio: 1;
     overflow: visible;
     border-radius: 0.75rem;
     box-shadow:
@@ -207,7 +207,7 @@ const [experienceLabel, experienceDetails] = founder.experience.split("\n");
   }
 
   .founder__credentials p { display: grid; }
-  .founder__credentials span { color: #718680; }
+  .founder__credentials span { color: #506a62; }
 
   .founder__linkedin {
     display: inline-flex;

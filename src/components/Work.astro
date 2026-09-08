@@ -63,7 +63,7 @@ const titleLines = work.title.split("\n");
         <h3 class="project-copy__name">{work.projectName}</h3>
         <p class="project-copy__summary">{work.summary}</p>
         <p class="project-copy__description">{work.description}</p>
-        <ul class="project-copy__tags" aria-label={work.tagsLabel}>
+        <ul class="project-copy__tags">
           {work.tags.map((tag) => <li>{tag}</li>)}
         </ul>
         <a
@@ -81,10 +81,10 @@ const titleLines = work.title.split("\n");
       </div>
     </article>
 
-    <aside class="selected-work__note" data-ui-id={`${uiId}.note`}>
+    <div class="selected-work__note" data-ui-id={`${uiId}.note`}>
       <p class="selected-work__note-label eyebrow">{work.noteLabel}</p>
       <p>{work.note}</p>
-    </aside>
+    </div>
   </div>
 </section>
 

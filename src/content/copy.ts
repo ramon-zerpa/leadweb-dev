@@ -26,7 +26,7 @@ export const copy = {
     meta: {
       title: "Lead Web Developers | Distinctive websites for Florida businesses",
       description:
-        "Custom websites by Ramón Zerpa. Front-end development with Astro, performance and technical SEO. 13+ years of experience, serving Florida businesses from Venezuela.",
+        "Custom websites by Ramón Zerpa. Astro front-end development, performance and technical SEO for Florida businesses. 13+ years of experience.",
       ogTitle: "Stand out. Stay fast. Win trust.",
     },
     skip: "Skip to content",
@@ -37,11 +37,14 @@ export const copy = {
       label: "Main navigation",
       mobileLabel: "Mobile navigation",
       languageLabel: "Language",
+      mobileLanguageLabel: "Language selector in mobile menu",
+      fallbackLabel: "Navigation without JavaScript",
       home: "Home",
       contactLabel: "Contact",
       work: "Work",
       expertise: "Expertise",
       about: "About",
+      reviews: "Reviews",
       contact: "Let’s talk",
       langCurrent: "EN",
       langOther: "ES",
@@ -100,7 +103,6 @@ export const copy = {
       description:
         "An editorial website for an engineering and construction company. Clear services, a distinctive visual system and a focused path to contact.",
       tags: ["Design", "Development", "Astro"],
-      tagsLabel: "DISOCA technologies",
       link: "Explore the project",
       href: "https://disoca.com/",
       previewUrl: "disoca.com",
@@ -113,7 +115,6 @@ export const copy = {
       kicker: "02 / What I bring",
       title: "More than\na website.\nA business tool.",
       body: "Design, development and performance working together from the first decision.",
-      listLabel: "Lead Web services",
       items: [
         {
           num: "01",
@@ -173,8 +174,70 @@ export const copy = {
         },
       ],
     },
+    testimonials: {
+      kicker: "05 / Client stories",
+      title: "Trust, earned in the work.",
+      carouselLabel: "Client testimonials",
+      carouselRole: "carousel",
+      ratingValue: "5 / 5",
+      ratingLabel: "5 out of 5 stars",
+      previousLabel: "Show previous testimonials",
+      nextLabel: "Show next testimonials",
+      pageLabel: "Show testimonial group",
+      statusLabel: "Testimonial group",
+      items: [
+        {
+          quote:
+            "Ramón quickly understood my brand’s vision and turned it into a website that is much clearer, more professional and more enjoyable to navigate. His attention to design, speed and technical details made the entire process flow smoothly.",
+          name: "Yuruari",
+          location: "Miami",
+          website: "yuruherrera.com",
+          href: "https://yuruherrera.com/",
+        },
+        {
+          quote:
+            "Working with Ramón was an excellent experience. He not only solved the site’s technical challenges, but also brought the judgment needed to improve its structure, performance and user experience. You can trust him to take a web project to the next level.",
+          name: "Yan",
+          location: "Tampa",
+          website: "truewebmaster.com",
+          href: "https://truewebmaster.com/",
+        },
+        {
+          quote:
+            "Raymond combined solid technical execution with excellent communication throughout the project. He built a modern, fast digital presence aligned with what we needed to communicate to our clients in Aruba.",
+          name: "Manuel",
+          location: "Aruba",
+          website: "lumiaruba.com",
+          href: "https://lumiaruba.com/",
+        },
+        {
+          quote:
+            "What I value most about Ramón is his ability to turn ideas into a functional, polished and easy-to-manage website. He has a great eye for detail and always makes sure the result not only looks good, but truly works for the business.",
+          name: "Gabriel",
+          location: "Mexico City",
+          website: "dukeanddon.com",
+          href: "https://dukeanddon.com/",
+        },
+        {
+          quote:
+            "Ramón helped us strengthen our online presence with a clear, professional solution focused on results. His experience in development, optimization and website structure shows in every part of the work.",
+          name: "Gustavo",
+          location: "Venezuela",
+          website: "disoca.com",
+          href: "https://disoca.com/",
+        },
+        {
+          quote:
+            "From the start, Ramón showed commitment, organization and a real willingness to understand the project’s needs. The result was a modern, thoughtful website prepared to communicate our value proposition more effectively.",
+          name: "Adriana",
+          location: "Venezuela",
+          website: "mopane.io",
+          href: "https://mopane.io/",
+        },
+      ],
+    },
     contact: {
-      kicker: "05 / Let’s build something that matters",
+      kicker: "06 / Let’s build something that matters",
       title: "Your next\nwebsite should\nraise the bar.",
       body: "Tell me what you’re building, what isn’t working or what you want to do differently.",
       email: "info@leadweb.dev",
@@ -262,9 +325,9 @@ export const copy = {
   },
   es: {
     meta: {
-      title: "Lead Web Developers | Sitios web con identidad para negocios de Florida",
+      title: "Lead Web Developers | Sitios web para negocios de Florida",
       description:
-        "Sitios a medida por Ramón Zerpa. Desarrollo front-end con Astro, rendimiento y SEO técnico. Más de 13 años de experiencia, al servicio de negocios de Florida desde Venezuela.",
+        "Sitios a medida de Ramón Zerpa. Front-end con Astro, rendimiento y SEO técnico para negocios de Florida. Más de 13 años de experiencia.",
       ogTitle: "Impacta. Carga rápido. Inspira confianza.",
     },
     skip: "Saltar al contenido",
@@ -275,11 +338,14 @@ export const copy = {
       label: "Navegación principal",
       mobileLabel: "Navegación móvil",
       languageLabel: "Idioma",
+      mobileLanguageLabel: "Selector de idioma en el menú móvil",
+      fallbackLabel: "Navegación sin JavaScript",
       home: "Inicio",
       contactLabel: "Contacto",
       work: "Proyectos",
       expertise: "Servicios",
       about: "Sobre mí",
+      reviews: "Reseñas",
       contact: "Hablemos",
       langCurrent: "ES",
       langOther: "EN",
@@ -338,7 +404,6 @@ export const copy = {
       description:
         "Un sitio editorial para una empresa de ingeniería y construcción. Servicios claros, un sistema visual propio y un camino directo al contacto.",
       tags: ["Diseño", "Desarrollo", "Astro"],
-      tagsLabel: "Tecnologías de DISOCA",
       link: "Ver el proyecto",
       href: "https://disoca.com/",
       previewUrl: "disoca.com",
@@ -351,7 +416,6 @@ export const copy = {
       kicker: "02 / Lo que aporto",
       title: "Más que\nun sitio.\nUna herramienta.",
       body: "Diseño, desarrollo y rendimiento trabajando juntos desde la primera decisión.",
-      listLabel: "Servicios de Lead Web",
       items: [
         {
           num: "01",
@@ -411,8 +475,70 @@ export const copy = {
         },
       ],
     },
+    testimonials: {
+      kicker: "05 / Voces de clientes",
+      title: "La confianza se gana en el trabajo.",
+      carouselLabel: "Testimonios de clientes",
+      carouselRole: "carrusel",
+      ratingValue: "5 / 5",
+      ratingLabel: "5 de 5 estrellas",
+      previousLabel: "Mostrar testimonios anteriores",
+      nextLabel: "Mostrar testimonios siguientes",
+      pageLabel: "Mostrar grupo de testimonios",
+      statusLabel: "Grupo de testimonios",
+      items: [
+        {
+          quote:
+            "Ramón entendió rápidamente la visión de mi marca y la convirtió en un sitio web mucho más claro, profesional y agradable de navegar. Su atención al diseño, la velocidad y los detalles técnicos hicieron que todo el proceso fuera muy fluido.",
+          name: "Yuruari",
+          location: "Miami",
+          website: "yuruherrera.com",
+          href: "https://yuruherrera.com/",
+        },
+        {
+          quote:
+            "Trabajar con Ramón fue una excelente experiencia. No solo resolvió la parte técnica del sitio, sino que también aportó criterio para mejorar la estructura, el rendimiento y la experiencia de usuario. Es alguien en quien puedes confiar para llevar un proyecto web a un nivel superior.",
+          name: "Yan",
+          location: "Tampa",
+          website: "truewebmaster.com",
+          href: "https://truewebmaster.com/",
+        },
+        {
+          quote:
+            "Raymond combinó una ejecución técnica sólida con muy buena comunicación durante todo el proyecto. Logró construir una presencia digital moderna, rápida y alineada con lo que necesitábamos mostrar a nuestros clientes en Aruba.",
+          name: "Manuel",
+          location: "Aruba",
+          website: "lumiaruba.com",
+          href: "https://lumiaruba.com/",
+        },
+        {
+          quote:
+            "Lo que más valoro de Ramón es su capacidad de convertir ideas en una web funcional, cuidada y fácil de administrar. Tiene un gran ojo para los detalles y siempre busca que el resultado no solo se vea bien, sino que realmente funcione para el negocio.",
+          name: "Gabriel",
+          location: "CDMX",
+          website: "dukeanddon.com",
+          href: "https://dukeanddon.com/",
+        },
+        {
+          quote:
+            "Ramón nos ayudó a mejorar nuestra presencia online con una solución clara, profesional y enfocada en resultados. Su experiencia en desarrollo, optimización y estructura web se nota en cada parte del trabajo.",
+          name: "Gustavo",
+          location: "Venezuela",
+          website: "disoca.com",
+          href: "https://disoca.com/",
+        },
+        {
+          quote:
+            "Desde el inicio, Ramón mostró compromiso, organización y mucha disposición para entender las necesidades del proyecto. El resultado fue un sitio moderno, bien pensado y preparado para comunicar mejor nuestra propuesta de valor.",
+          name: "Adriana",
+          location: "Venezuela",
+          website: "mopane.io",
+          href: "https://mopane.io/",
+        },
+      ],
+    },
     contact: {
-      kicker: "05 / Construyamos algo que importe",
+      kicker: "06 / Construyamos algo que importe",
       title: "Tu próximo\nsitio debería\nsubir el nivel.",
       body: "Cuéntame qué estás construyendo, qué no está funcionando o qué quieres hacer distinto.",
       email: "info@leadweb.dev",

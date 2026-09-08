@@ -33,7 +33,7 @@ const hero = copy[locale].hero;
       <span class="scene-mini-action" data-scene-part="action">{hero.sceneMiniAction}</span>
       <div class="scene-sculpture" data-scene-motion>
         {[0, 1, 2, 3].map((index) => (
-          <span class="scene-plane" style={`--plane: ${index}`} data-scene-plane>
+          <span class:list={["scene-plane", `scene-plane--${index + 1}`]} data-scene-plane>
             <span class="scene-plane-fill" data-scene-motion></span>
           </span>
         ))}
@@ -49,7 +49,6 @@ const hero = copy[locale].hero;
     </div>
     </div>
   </div>
-  <figcaption id={`${id}-caption`} class="sr-only">{hero.sceneCaption}</figcaption>
   <div class="scene-controls-space">
       <button class="scene-pause" type="button" data-scene-pause data-pause-label={hero.pauseMotion} data-resume-label={hero.resumeMotion} aria-label={hero.pauseMotion} hidden>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -58,6 +57,7 @@ const hero = copy[locale].hero;
         <span data-motion-label>{hero.pauseMotion}</span>
       </button>
   </div>
+  <figcaption id={`${id}-caption`} class="sr-only">{hero.sceneCaption}</figcaption>
 </figure>
 
 <script>
@@ -232,6 +232,11 @@ const hero = copy[locale].hero;
     transform: rotate(13deg);
     transform-origin: top left;
   }
+
+  .scene-plane--1 { --plane: 0; }
+  .scene-plane--2 { --plane: 1; }
+  .scene-plane--3 { --plane: 2; }
+  .scene-plane--4 { --plane: 3; }
 
   .scene-plane-fill { display: block; inline-size: 100%; block-size: 100%; background: linear-gradient(90deg, #163b43, var(--plane-color, #1f6b78)); }
   .scene-plane:nth-child(2) { --plane-color: #2095a0; }
